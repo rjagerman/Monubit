@@ -60,7 +60,7 @@ to enter your database information:
 Follow all the steps there and your application should be configured
 correctly.
 
-5) Installing and updating vendor scripts
+5) Installing vendor scripts
 -------------------------------
 
 Before you can use Monubit you will have to install and update all
@@ -70,12 +70,20 @@ cloned repository:
 
     php composer.phar install
     
-Now run the following command to update everything to the latest
-version:
+6) Creating the database
+-------------------------------
 
-    php composer.phar update
+You can create the database for Monubit by executing the following
+command:
 
-6) Done!
+    php app/console doctrine:database:create
+
+To load all the tables and schemas, run the following command:
+
+    php app/console doctrine:schema:update --force
+
+
+7) Done!
 ---------------
 
 You can now start using Monubit at the following URL:
