@@ -9,25 +9,25 @@ runs on your webserver.
 To run Monubit you will need a web server capable of running the Symfony2
 framework. This means we require the following:
 
-* An HTTP server (Apache for example)
-* PHP 5.4 or higher
-* MySQL or a similar database management system
-* Composer (script included in the root directory)
+* An HTTP server (Apache for example).
+* PHP 5.4 or higher.
+* MySQL or a similar database management system.
+* Composer (script included in the root directory).
 
 Furthermore, we recommend you install the following, even though it is
 not required to run the application:
 
-* A PHP bytecode cache (APC v3.13+ or XCache)
-* The PHP intl package
-* A command line interface with basic linux command functionality
+* A PHP bytecode cache (APC v3.13+ or XCache).
+* The PHP intl package.
+* A command line interface with basic linux command functionality.
   This means that if you are running windows we recommend you install
-  conemu (terminal emulator) and cygwin (linux functionality)
+  conemu (terminal emulator) and cygwin (linux functionality).
 
 2) Cloning from git
 ----------------------------------
 
 You have to clone this git repository into a directory of your webserver.
-Usually you will want to clone it into `htdocs` so that the /Monubit/web/
+Usually you will want to clone it into `htdocs` so that the `/Monubit/web/`
 folder can directly be accessed by the browser, however other valid 
 configurations do exist.
 
