@@ -1,0 +1,5 @@
+monubit_monument:
+    resource: "@MonubitMonumentBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
