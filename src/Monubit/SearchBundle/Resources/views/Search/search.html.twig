@@ -2,11 +2,38 @@
 
 {% block body %}
 <h1>Search results</h1>
+
+{# Search results #}
 <div id="searchresults">
+{% if results is empty %}
+No results found for '{{ query }}'
+{% endif %}
 <ul>
 {% for monument in results %}
-<li><a href="{{ path('monument', {'id': monument.id}) }}">{{ monument.location.street }} {{ monument.location.streetNumber }}</a></li>
+	<li><a href="{{ path('monument', {'id': monument.id}) }}">{{ monument.location.street }} {{ monument.location.streetNumber }}</a></li>
 {% endfor %}
 </ul>
+
+{# Pagination bar #}
+{% if startpage != endpage %}
+	{% if page > 1 %}
+		<a href="{{ path('search', {'query': query, 'offset': page-1}) }}">«</a>
+	{%  else %}
+		«
+	{% endif %}
+	{% for i in startpage..endpage %}
+		{% if page != i %}
+		<a href="{{ path('search', {'query': query, 'offset': i}) }}">{{ i }}</a>
+		{% else %}
+		{{ i }}
+		{% endif %}
+	{% endfor %}
+	{% if page < pages %}
+		<a href="{{ path('search', {'query': query, 'offset': page+1}) }}">»</a>
+	{%  else %}
+		»
+	{% endif %}
+{% endif %}
+
 </div>
 {% endblock %}

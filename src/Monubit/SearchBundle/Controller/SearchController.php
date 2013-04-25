@@ -12,7 +12,7 @@ class SearchController extends Controller
      * @Route("/search/{query}/{offset}",
      *   name="search",
      *   requirements={"offset" = "\d+"},
-     *   defaults={"offset" = 0}
+     *   defaults={"offset" = 1}
      * )
      * @Template()
      */
@@ -20,20 +20,39 @@ class SearchController extends Controller
     {
     	
     	// Initialize settings
-    	$resultsPerPage = 10;
-    	$em = $this->getDoctrine()->getManager();
+    	$resultsPerPage = 15;
+    	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
     	
     	// Create the query for searching
-    	$query = $em->createQuery(
-    			'SELECT m FROM MonubitMonumentBundle:Monument m WHERE m.title LIKE :query ORDER BY m.id ASC'
-    	)->setParameter('query', '%' . $query . '%');
+    	$dql = $repository->createQueryBuilder('m')
+    		->where('m.title LIKE :query')
+    		->setParameter('query', '%' . $query . '%')
+    		->orderBy('m.id', 'ASC')
+    		->getQuery();
     	
-    	// Set the maximum number of results per page
-    	$query->setMaxResults($resultsPerPage);
+    	// Set the maximum number of results per page and jump to the correct page
+    	$dql->setMaxResults($resultsPerPage);
+    	$dql->setFirstResult(($offset-1) * $resultsPerPage);
     	
     	// Get the results
-    	$results = $query->getResult();
+    	$results = $dql->getResult();
     	
-        return array('results' => $results);
+    	// Create the query for counting
+    	$dql = $repository->createQueryBuilder('m')
+    		->select('count(m)')
+    		->where('m.title LIKE :query')
+    		->setParameter('query', '%' . $query . '%')
+    		->getQuery();
+    	
+    	// Calculate the total number of pages
+    	$totalNumberOfResults = $dql->getSingleScalarResult();
+    	$totalNumberOfPages = ceil($totalNumberOfResults / $resultsPerPage);
+    	
+    	// Create pagination start and end indices
+    	$adjacentPages = 4;
+    	$start = max(1, min($totalNumberOfPages - $adjacentPages*2, max(1, $offset - $adjacentPages - max(0, min(5, $offset + $adjacentPages - $totalNumberOfPages)))));
+    	$end = max(1, min($totalNumberOfPages, min($offset + $adjacentPages + max(0, min(5, 5-$offset)), $totalNumberOfPages)));
+    	
+        return array('results' => $results, 'query' => $query, 'page' => $offset, 'pages' => $totalNumberOfPages, 'startpage' => $start, 'endpage' => $end);
     }
 }
