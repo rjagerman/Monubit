@@ -19,6 +19,10 @@ class MonumentController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$monument = $em->getRepository('MonubitMonumentBundle:Monument')->find($id);
     	
+    	$monument = new Monument();
+    	$monument->setTitle('Title');
+    	$monument->setDescription('Some description...');
+    	
     	if($monument == null) {
     		throw new NotFoundHttpException();
     	}
