@@ -24,7 +24,7 @@ class Location {
 	 * @ORM\Column(type="decimal", nullable=true)
 	 * @var double
 	 */
-	private $lattitude;
+	private $latitude;
 	
 	/**
 	 * @ORM\Column(type="decimal", nullable=true)
