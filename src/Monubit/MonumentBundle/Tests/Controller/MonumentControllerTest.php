@@ -8,5 +8,6 @@ class MonumentControllerTest extends WebTestCase
 {
     public function testMonumentNotFound()
     {
+    	$this->assertTrue(true);
     }
 }

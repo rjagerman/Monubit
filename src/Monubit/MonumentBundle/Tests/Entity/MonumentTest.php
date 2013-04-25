@@ -4,6 +4,7 @@ namespace Monubit\MonumentBundle\Tests\Controller;
 
 
 use Monubit\MonumentBundle\Entity\Monument;
+use Monubit\MonumentBundle\Entity\Location;
 
 class MonumentTest extends \PHPUnit_Framework_TestCase {
 	
