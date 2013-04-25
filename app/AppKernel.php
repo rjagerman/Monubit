@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new JMS\SecurityExtraBundle\JMSSecurityExtraBundle(),
             new Monubit\MonumentBundle\MonubitMonumentBundle(),
             new Monubit\FrontBundle\MonubitFrontBundle(),
+            new Monubit\SearchBundle\MonubitSearchBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

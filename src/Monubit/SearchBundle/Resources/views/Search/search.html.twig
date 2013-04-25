@@ -1,0 +1,12 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+<h1>Search results</h1>
+<div id="searchresults">
+<ul>
+{% for monument in results %}
+<li><a href="{{ path('monument', {'id': monument.id}) }}">{{ monument.location.street }} {{ monument.location.streetNumber }}</a></li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}
