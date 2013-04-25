@@ -57,10 +57,16 @@ class Location {
 	private $street;
 	
 	/**
+	 * @ORM\Column(type="integer", nullable=true)
+	 * @var int
+	 */
+	private $streetNumber;
+	
+	/**
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
-	private $streetNumber;
+	private $streetNumberAppendix;
 	
 	/**
 	 * @ORM\Column(type="string", length=6, nullable=true)
