@@ -21,13 +21,13 @@ class Location {
 	private $id;
 	
 	/**
-	 * @ORM\Column(type="decimal", nullable=true)
+	 * @ORM\Column(type="decimal", scale="11", nullable=true)
 	 * @var double
 	 */
 	private $latitude;
 	
 	/**
-	 * @ORM\Column(type="decimal", nullable=true)
+	 * @ORM\Column(type="decimal", scale="11", nullable=true)
 	 * @var double
 	 */
 	private $longitude;
