@@ -44,13 +44,25 @@ the following:
 
 If you get any warnings or recommendations, fix them before moving on.
 
-4) Configuring your database information
---------------------------------
+4) Installing vendor scripts
+-------------------------------
 
+Symfony requires the basic parameters file before it can run commands.
 Run the following command in the command line to copy the default
-configuration parameters:
+configuration parameters file:
 
     cp ./app/config/parameters.yml.dist ./app/config/parameters.yml
+    
+Before you can use Monubit you will have to install and update all
+of its dependencies. Assuming you have composer installed, simply
+run the following command in the command line from the root of your
+cloned repository:
+
+    php composer.phar install
+    
+
+5) Configuring your database information
+--------------------------------
 
 Now open your web browser and browse to the configuration script
 to enter your database information:
@@ -60,16 +72,6 @@ to enter your database information:
 Follow all the steps there and your application should be configured
 correctly.
 
-5) Installing vendor scripts
--------------------------------
-
-Before you can use Monubit you will have to install and update all
-of its dependencies. Assuming you have composer installed, simply
-run the following command in the command line from the root of your
-cloned repository:
-
-    php composer.phar install
-    
 6) Creating the database
 -------------------------------
 
