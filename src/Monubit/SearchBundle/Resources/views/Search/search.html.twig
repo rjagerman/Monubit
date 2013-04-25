@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/monubitsearch/css/search.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 <h1>Search results</h1>
 
@@ -13,27 +18,18 @@ No results found for '{{ query }}'
 	<li><a href="{{ path('monument', {'id': monument.id}) }}">{{ monument.location.street }} {{ monument.location.streetNumber }}</a></li>
 {% endfor %}
 </ul>
+</div>
 
 {# Pagination bar #}
+<div id="pagination">
+{% spaceless %}
 {% if startpage != endpage %}
-	{% if page > 1 %}
-		<a href="{{ path('search', {'query': query, 'offset': page-1}) }}">«</a>
-	{%  else %}
-		«
-	{% endif %}
+	<a {% if page == 1 %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'offset': page-1}) }}"{% endif %}>«</a>
 	{% for i in startpage..endpage %}
-		{% if page != i %}
-		<a href="{{ path('search', {'query': query, 'offset': i}) }}">{{ i }}</a>
-		{% else %}
-		{{ i }}
-		{% endif %}
+		<a {% if page == i %}class="current inactive"{% else %}href="{{ path('search', {'query': query, 'offset': i}) }}"{% endif %}>{{ i }}</a>
 	{% endfor %}
-	{% if page < pages %}
-		<a href="{{ path('search', {'query': query, 'offset': page+1}) }}">»</a>
-	{%  else %}
-		»
-	{% endif %}
+	<a {% if page >= pages %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'offset': page+1}) }}"{% endif %}>»</a>
 {% endif %}
-
+{% endspaceless %}
 </div>
 {% endblock %}

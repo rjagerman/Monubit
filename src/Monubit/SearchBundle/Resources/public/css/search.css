@@ -1,0 +1,37 @@
+div#searchresults ul {
+	list-style-type: none;
+	margin: 0px 8px;
+	padding: 0px;
+}
+div#searchresults ul li {
+	margin: 0px;
+	padding: 6px;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	margin-top: -1px;
+}
+
+div#pagination {
+	margin: 8px 16px;
+	text-align: center;
+}
+div#pagination a {
+	display: inline-block;
+	color: #888;
+	text-decoration: none;
+	width: 24px;
+	height: 24px;
+	padding: 0px 4px;
+	margin: 0px;
+}
+div#pagination a.current {
+	color: #333;
+	text-decoration: none;
+}
+div#pagination a.inactive:hover {
+	text-decoration: none;
+}
+div#pagination a:hover {
+	text-decoration: underline;
+	color: #333;
+}
