@@ -70,20 +70,74 @@ class Monument {
 		$this->id = $id;
 	}
 	
+	/**
+	 * @return string The title
+	 */
 	public function getTitle() {
 		return $this->title;
 	}
 	
+	/**
+	 * @param string $title The title
+	 */
 	public function setTitle($title) {
 		$this->title = $title;
 	}
 	
+	/**
+	 * @return string The description
+	 */
 	public function getDescription() {
 		return $this->description;
 	}
 	
+	/**
+	 * @param string $description The description
+	 */
 	public function setDescription($description) {
 		$this->description = $description;
+	}
+	
+	/**
+	 * @return \Monubit\MonumentBundle\Entity\Location
+	 */
+	public function getLocation() {
+		return $this->location;
+	}
+	
+	/**
+	 * @param \Monubit\MonumentBundle\Entity\Location $location
+	 */
+	public function setLocation($location) {
+		$this->location = $location;
+	}
+	
+	/**
+	 * @return string The main category
+	 */
+	public function getMainCategory() {
+		return $this->mainCategory;
+	}
+	
+	/**
+	 * @param string $mainCategory The main category
+	 */
+	public function setMainCategory($mainCategory) {
+		$this->mainCategory = $mainCategory;
+	}
+	
+	/**
+	 * @return string The sub category
+	 */
+	public function getSubCategory() {
+		return $this->subCategory;
+	}
+	
+	/**
+	 * @param string $subCategory The sub category
+	 */
+	public function setSubCategory($subCategory) {
+		$this->subCategory = $subCategory;
 	}
 	
 }
