@@ -20,36 +20,54 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$this->monument = new Monument();
 	}
 	
+	/**
+	 * Test the id
+	 */
     public function testId() {
     	$id = 3;
 		$this->monument->setId($id);
         $this->assertEquals($id, $this->monument->getId());
     }
     
+    /**
+     * Test the title
+     */
     public function testTitle() {
     	$title = 'Test title';
     	$this->monument->setTitle($title);
     	$this->assertEquals($title, $this->monument->getTitle());
     }
     
+    /**
+     * Test the description
+     */
     public function testDescription() {
     	$description = 'Some text description';
     	$this->monument->setDescription($description);
     	$this->assertEquals($description, $this->monument->getDescription());
     }
     
+    /**
+     * Test the location
+     */
     public function testLocation() {
     	$location = new Location();
     	$this->monument->setLocation($location);
     	$this->assertEquals($location, $this->monument->getLocation());
     }
     
+    /**
+     * Test the main category
+     */
     public function testMainCategory() {
     	$mainCategory = 'Test Main Category';
     	$this->monument->setMainCategory($mainCategory);
     	$this->assertEquals($mainCategory, $this->monument->getMainCategory());
     }
     
+    /**
+     * Test the sub category
+     */
     public function testSubCategory() {
     	$subCategory = 'Test Sub Category';
     	$this->monument->setSubCategory($subCategory);
