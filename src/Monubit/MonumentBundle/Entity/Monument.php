@@ -34,7 +34,7 @@ class Monument {
 	private $description;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="Location", cascade={"all"}, nullable=true)
+	 * @ORM\OneToOne(targetEntity="Location", cascade={"all"})
 	 * 
 	 * @var Location
 	 */
