@@ -21,49 +21,49 @@ class Location {
 	private $id;
 	
 	/**
-	 * @ORM\Column(type="decimal")
+	 * @ORM\Column(type="decimal", nullable=true)
 	 * @var double
 	 */
 	private $lattitude;
 	
 	/**
-	 * @ORM\Column(type="decimal")
+	 * @ORM\Column(type="decimal", nullable=true)
 	 * @var double
 	 */
 	private $longitude;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $province;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $municipality;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $town;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $street;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $streetNumber;
 	
 	/**
-	 * @ORM\Column(type="string", length=6)
+	 * @ORM\Column(type="string", length=6, nullable=true)
 	 * @var string
 	 */
 	private $zipCode;

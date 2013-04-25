@@ -22,32 +22,32 @@ class Monument {
 	private $id;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $title;
 	
 	/**
-	 * @ORM\Column(type="text")
+	 * @ORM\Column(type="text", nullable=true)
 	 * @var string
 	 */
 	private $description;
 	
 	/**
-	 * @ORM\OneToOne(targetEntity="Location", cascade={"all"})
+	 * @ORM\OneToOne(targetEntity="Location", cascade={"all"}, nullable=true)
 	 * 
 	 * @var Location
 	 */
 	private $location;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $mainCategory;
 	
 	/**
-	 * @ORM\Column(type="string", length=255)
+	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
 	private $subCategory;
