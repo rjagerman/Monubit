@@ -14,29 +14,31 @@ class LoadCommand extends ContainerAwareCommand
 	{
 		$this
 		->setName('monument:load')
-		->setDescription('Loads monuments from an xml file')
+		->setDescription('Loads monuments from multiple xml files')
 		->addArgument(
-				'file',
+				'folder',
 				InputArgument::REQUIRED,
-				'Which file do you want to load?'
+				'Which folder do you want to load from?'
 		)
 		;
 	}
 
 	protected function execute(InputInterface $input, OutputInterface $output)
 	{
-		// Grab the file
-		$file = $input->getArgument('file');
+		// Grab the folder argument
+		$folder = $input->getArgument('folder');
 		
-		// Load xml from file
+		// Load files
+		$output->writeln('Loading from folder "' . $folder . '"');
 		
 		
 		// Create entity and store into the database (if it does not yet exist)
-		$output->writeln('Loading from file "' . $file . '"');
+		
 		
 		$em = $this->getContainer()->get('doctrine')->getManager();
 		
 		// create monument object (new Monument())
+		// create location object (new Location())
 		// use setters to set information
 		// store object in database ($em->persist($monumentObject); )
 		// flush the entity manager so it gets stored in the database ($em->flush(); )
