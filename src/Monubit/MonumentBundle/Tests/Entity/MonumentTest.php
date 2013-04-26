@@ -74,4 +74,13 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
     	$this->assertEquals($subCategory, $this->monument->getSubCategory());
     }
     
+    /**
+     * Tests the image
+     */
+    public function testImage() {
+    	$image = 'http://www.someurl.com/image.png';
+    	$this->monument->setImage($image);
+    	$this->assertEquals($image, $this->monument->getImage());
+    }
+    
 }
