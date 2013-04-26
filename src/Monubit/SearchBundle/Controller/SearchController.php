@@ -20,7 +20,7 @@ class SearchController extends Controller
     {
     	
     	// Initialize settings
-    	$resultsPerPage = 15;
+    	$resultsPerPage = 10;
     	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
     	
     	// Create the query for searching

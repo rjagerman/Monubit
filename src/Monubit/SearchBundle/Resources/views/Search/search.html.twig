@@ -15,7 +15,7 @@ No results found for '{{ query }}'
 {% endif %}
 <ul>
 {% for monument in results %}
-	<li><a href="{{ path('monument', {'id': monument.id}) }}">{{ monument.location.street }} {{ monument.location.streetNumber }}</a></li>
+	<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ monument.image }}" /></div><div class="result">{{ monument.location.street }} {{ monument.location.streetNumber }}</div></a></li>
 {% endfor %}
 </ul>
 </div>

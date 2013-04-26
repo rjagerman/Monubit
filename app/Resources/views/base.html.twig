@@ -3,11 +3,30 @@
     <head>
         <meta charset="UTF-8" />
         <title>{% block title %}Monubit{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        {% block javascripts %}{% endblock %}
+        {% block stylesheets %}
+		<link href="{{ asset('css/base.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        {% block javascripts %}
+        <script type="text/javascript" src="{{ asset('js/jquery-2.0.0.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/search.js') }}"></script>
+        {% endblock %}
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+    	<div id="container">{% spaceless %}
+    		<div id="header">
+    			<div id="logo">
+    				<a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" /></a>
+    			</div>
+    			<div id="searchbar">
+    				<form action="{{ path('search', {'query': '__q__'}) }}" id="searchform"><input type="text" name="search" id="searchinput" /><input id="searchsubmit" type="submit" /></form>
+    			</div>
+    			<div id="userbar">
+    			</div>
+    		</div>
+    		{% endspaceless %}<div id="main">
+    		{% block body %}{% endblock %}
+    		</div>
+    	</div>
     </body>
 </html>
