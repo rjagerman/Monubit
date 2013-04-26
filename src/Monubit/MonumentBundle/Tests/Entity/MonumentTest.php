@@ -32,10 +32,10 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
     /**
      * Test the title
      */
-    public function testTitle() {
-    	$title = 'Test title';
-    	$this->monument->setTitle($title);
-    	$this->assertEquals($title, $this->monument->getTitle());
+    public function testName() {
+    	$name = 'Test name';
+    	$this->monument->setName($name);
+    	$this->assertEquals($name, $this->monument->getName());
     }
     
     /**

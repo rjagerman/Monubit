@@ -25,7 +25,7 @@ class Monument {
 	 * @ORM\Column(type="string", length=255, nullable=true)
 	 * @var string
 	 */
-	private $title;
+	private $name;
 	
 	/**
 	 * @ORM\Column(type="text", nullable=true)
@@ -52,6 +52,12 @@ class Monument {
 	 */
 	private $subCategory;
 	
+	/**
+	 * @ORM\Column(type="string", length=510, nullable=true)
+	 * @var string
+	 */
+	private $image;
+	
 	// usageOnOtherWikis
 	
 	// usageOnWikiMediaCommons
@@ -71,17 +77,17 @@ class Monument {
 	}
 	
 	/**
-	 * @return string The title
+	 * @return string The name
 	 */
-	public function getTitle() {
-		return $this->title;
+	public function getName() {
+		return $this->name;
 	}
 	
 	/**
-	 * @param string $title The title
+	 * @param string $name The name
 	 */
-	public function setTitle($title) {
-		$this->title = $title;
+	public function setName($name) {
+		$this->name = $name;
 	}
 	
 	/**
@@ -138,6 +144,20 @@ class Monument {
 	 */
 	public function setSubCategory($subCategory) {
 		$this->subCategory = $subCategory;
+	}
+	
+	/**
+	 * @return string The image
+	 */
+	public function getImage() {
+		return $this->image;
+	}
+	
+	/**
+	 * @param string $image The image
+	 */
+	public function setImage($image) {
+		$this->image = $image;
 	}
 	
 }
