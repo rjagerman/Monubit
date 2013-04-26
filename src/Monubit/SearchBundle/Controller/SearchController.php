@@ -28,8 +28,9 @@ class SearchController extends Controller
     	    ->select('m')
     		->from('MonubitMonumentBundle:Monument', 'm')
     		->leftJoin('m.location', 'l')
-    		->where('m.title LIKE :query')
-    		->orWhere('m.description LIKE :query')
+    		->where('m.name LIKE :query')
+    		->orWhere('m.mainCategory LIKE :query')
+    		->orWhere('m.subCategory LIKE :query')
     		->orWhere('l.street LIKE :query')
     		->orWhere('l.province LIKE :query')
     		->orWhere('l.municipality LIKE :query')
@@ -46,10 +47,19 @@ class SearchController extends Controller
     	$results = $dql->getResult();
     	
     	// Create the query for counting
-    	$dql = $repository->createQueryBuilder('m')
-    		->select('count(m)')
-    		->where('m.title LIKE :query')
+    	$dql = $this->getDoctrine()->getManager()->createQueryBuilder()
+    	    ->select('count(m)')
+    		->from('MonubitMonumentBundle:Monument', 'm')
+    		->leftJoin('m.location', 'l')
+    		->where('m.name LIKE :query')
+    		->orWhere('m.mainCategory LIKE :query')
+    		->orWhere('m.subCategory LIKE :query')
+    		->orWhere('l.street LIKE :query')
+    		->orWhere('l.province LIKE :query')
+    		->orWhere('l.municipality LIKE :query')
+    		->orWhere('l.town LIKE :query')
     		->setParameter('query', '%' . $query . '%')
+    		->orderBy('m.id', 'ASC')
     		->getQuery();
     	
     	// Calculate the total number of pages
