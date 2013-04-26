@@ -24,8 +24,16 @@ class SearchController extends Controller
     	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
     	
     	// Create the query for searching
-    	$dql = $repository->createQueryBuilder('m')
+    	$dql = $this->getDoctrine()->getManager()->createQueryBuilder()
+    	    ->select('m')
+    		->from('MonubitMonumentBundle:Monument', 'm')
+    		->leftJoin('m.location', 'l')
     		->where('m.title LIKE :query')
+    		->orWhere('m.description LIKE :query')
+    		->orWhere('l.street LIKE :query')
+    		->orWhere('l.province LIKE :query')
+    		->orWhere('l.municipality LIKE :query')
+    		->orWhere('l.town LIKE :query')
     		->setParameter('query', '%' . $query . '%')
     		->orderBy('m.id', 'ASC')
     		->getQuery();
