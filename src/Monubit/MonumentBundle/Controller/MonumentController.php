@@ -11,7 +11,7 @@ use Monubit\MonumentBundle\Entity\Monument;
 class MonumentController extends Controller
 {
     /**
-     * @Route("/monument/{id}", name="monument")
+     * @Route("/monument/{id}", requirements={"id": "\d+"}, name="monument")
      * @Template()
      */
     public function monumentAction($id)
