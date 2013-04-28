@@ -3,11 +3,13 @@ div#searchresults ul {
 	margin: 0px 8px;
 	padding: 0px;
 }
+
 div#searchresults ul li {
 	margin: 0px;
 	height: 68px;
 	margin: 3px 0px;
 }
+
 div#searchresults ul li div.image {
 	display: inline-block;
 	vertical-align: top;
@@ -19,9 +21,11 @@ div#searchresults ul li div.image {
 	border: 1px solid #eee;
 	background: #eee;
 }
+
 div#searchresults ul li div.image img {
 	height: 64px;
 }
+
 div#searchresults ul li div.result {
 	display: inline-block;
 	vertical-align: top;
@@ -29,6 +33,7 @@ div#searchresults ul li div.result {
 	height: 68px;
 	padding: 0px 8px;
 }
+
 div#searchresults ul li:hover {
 	background: #eee;
 }
@@ -37,6 +42,7 @@ div#pagination {
 	margin: 8px 16px;
 	text-align: center;
 }
+
 div#pagination a {
 	display: inline-block;
 	color: #888;
@@ -46,13 +52,16 @@ div#pagination a {
 	padding: 0px 4px;
 	margin: 0px;
 }
+
 div#pagination a.current {
 	color: #333;
 	text-decoration: none;
 }
+
 div#pagination a.inactive:hover {
 	text-decoration: none;
 }
+
 div#pagination a:hover {
 	text-decoration: underline;
 	color: #333;
