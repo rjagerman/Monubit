@@ -1,7 +1,7 @@
 /* Google web font: Open Sans */
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300);
 
-html, body {
+html,body {
 	font-family: 'Open Sans';
 	font-weight: 400;
 	color: #444;
@@ -11,45 +11,56 @@ html, body {
 	background-repeat: repeat-y;
 	background-position: 50% 0;
 	background-color: #eee;
+	min-width: 980px;
 }
-h1, h2, h3 {
+
+h1,h2,h3 {
 	font-weight: 300;
 	font-size: 24px;
 	padding: 0px 16px;
 }
+
 h2 {
 	font-size: 22px;
 }
+
 h3 {
 	font-size: 20px;
 }
+
 p {
 	font-size: 14px;
 }
+
 div#container {
 	width: 980px;
 	margin: 0 auto;
 }
+
 div#header {
 	background: #eee;
 	height: 71px;
 	margin: 0px 10px;
 	width: 960px;
 }
+
 div#header div {
 	display: inline-block;
 	vertical-align: top;
 }
+
 div#logo {
 	width: 200px;
 	padding: 0px 0px 0px 16px;
 	margin: 0px;
 	height: 68px;
 }
+
 div#searchbar {
 	width: 560px;
 	padding-left: 20px;
 }
+
 div#searchbar input#searchinput {
 	width: 500px;
 	height: 20px;
@@ -61,6 +72,7 @@ div#searchbar input#searchinput {
 	box-shadow: 0px 0px 3px #ddd;
 	border-right: 0px;
 }
+
 div#searchbar input#searchsubmit {
 	width: 28px;
 	height: 28px;
@@ -73,14 +85,17 @@ div#searchbar input#searchsubmit {
 	box-shadow: 3px 0px 3px #ddd;
 	text-indent: -9999px;
 }
+
 div#userbar {
 	
 }
+
 div#main {
 	margin: 0px 10px;
 	padding: 1px 0px;
 	background: #fff;
 	width: 960px;
 	padding-bottom: 10px;
-	box-shadow: 0 -6px 6px -6px #ccc, 6px 0px 6px -6px #ccc, -6px 0px 6px -6px #ccc;
+	box-shadow: 0 -6px 6px -6px #ccc, 6px 0px 6px -6px #ccc, -6px 0px 6px
+		-6px #ccc;
 }
