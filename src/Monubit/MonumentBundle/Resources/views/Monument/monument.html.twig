@@ -22,7 +22,7 @@
 <div class="right" >
 {% set name = monument.name %}
 	<h1>{% if name == "" %}
-			{{ loc.street }}
+			{{ loc.street }} {{ loc.streetNumber }} {{ loc.streetNumberAppendix }}
 		{% else %}
 			{{ name }}
 		{% endif %}
