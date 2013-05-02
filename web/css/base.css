@@ -94,9 +94,10 @@ div#searchbar input#searchsubmit {
 
 div#userbar {
 	width: 230px;
-	height: 64px;
-	line-height: 64px;
+	height: 66px;
+	line-height: 66px;
 	text-align: right;
+	font-size: 12px;
 }
 
 div#main {
