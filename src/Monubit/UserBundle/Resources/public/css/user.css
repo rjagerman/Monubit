@@ -1,0 +1,20 @@
+div#formpage {
+	width: 460px;
+    margin: 0 auto;
+    padding: 32px 0px 0px 0px;
+}
+label {
+    width: 170px;
+    display: inline-block;
+    text-align: right;
+}
+label.wide {
+    width: 250px;
+}
+label.leftlabel {
+	text-align: left;
+	width: 250px;
+}
+div#form div {
+	padding: 4px;
+}

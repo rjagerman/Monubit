@@ -1,5 +1,10 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/monubituser/css/user.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
 
         {% for key, message in app.session.getFlashBag() %}
@@ -8,7 +13,7 @@
         </div>
         {% endfor %}
 
-        <div>
+        <div id="formpage">
             {% block fos_user_content %}
             {% endblock fos_user_content %}
         </div>
