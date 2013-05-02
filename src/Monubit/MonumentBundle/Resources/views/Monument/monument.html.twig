@@ -1,6 +1,39 @@
 {% extends '::base.html.twig' %}
 
+{% block stylesheets %}
+{{ parent() }}
+<link href="{{ asset('bundles/monubitmonument/css/monument.css') }}" type="text/css" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-<h1>{{ monument.name }}</h1>
-<p>{{ monument.description }}</p>
+{% spaceless %}
+<div class="left" >
+	<div class="image" >
+		<img src="{{ monument.image }}" alt="monument image" >
+	</div>
+	<div class="address">
+		{% set loc = monument.location %}
+		<p>Straat: {{ loc.street }}<br>
+		Huisnummer: {{ loc.streetNumber }}{{ loc.streetNumberAppendix }}<br>
+		Postcode: {{ loc.zipCode }}<br>
+		Plaats: {{ loc.town }}</p>
+	</div>
+</div>
+<div class="right" >
+{% set name = monument.name %}
+	<h1>{% if name == "" %}
+			{{ loc.street }}
+		{% else %}
+			{{ name }}
+		{% endif %}
+	</h1>
+	<div class="description" >
+		<p>Beschrijving:</p>
+		<p>{{ monument.description }}</p>
+	</div>
+</div>
+<div class="recommend" >
+		<h2>Aanbevelingen</h2>
+</div>
+{% endspaceless %}
 {% endblock %}
