@@ -62,7 +62,10 @@ div#searchbar {
 }
 
 div#searchbar input#searchinput {
-	width: 500px;
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 21px;
+	width: 430px;
 	height: 20px;
 	margin: 21px 0px 21px 10px;
 	padding: 3px;
@@ -74,6 +77,9 @@ div#searchbar input#searchinput {
 }
 
 div#searchbar input#searchsubmit {
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 21px;
 	width: 28px;
 	height: 28px;
 	border: 1px solid #888;
@@ -87,7 +93,8 @@ div#searchbar input#searchsubmit {
 }
 
 div#userbar {
-	
+	width: 230px;
+	height: 60px;
 }
 
 div#main {
