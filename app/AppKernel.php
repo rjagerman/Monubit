@@ -23,7 +23,7 @@ class AppKernel extends Kernel
             new Monubit\FrontBundle\MonubitFrontBundle(),
             new Monubit\SearchBundle\MonubitSearchBundle(),
         	new FOS\UserBundle\FOSUserBundle(),
-            new Monubit\UserBundle\MonubitUserBundle(),
+			new Monubit\UserBundle\MonubitUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

@@ -1,7 +1,5 @@
 monubit_user:
-    resource: "@MonubitUserBundle/Controller/"
-    type:     annotation
-    prefix:   /
+    resource: "@MonubitUserBundle/Resources/config/routing.yml"
 
 monubit_search:
     resource: "@MonubitSearchBundle/Controller/"
