@@ -1,5 +1,5 @@
 div.right, div.left, div.recommend {
-	background-color:#D3D3D3;
+	
     /*display:inline-block;
     vertical-align: top;*/
     float:left;
@@ -30,7 +30,6 @@ div.image img {
 }
 
 div.address, div.description {
-    background-color:#C0C0C0;
     margin-right:auto;
     margin-left:auto;
 	box-shadow: 0px 0px 6px #FFFAFA;
@@ -39,14 +38,16 @@ div.address, div.description {
 }
 
 div.description {
-	width: 460px;
+	
 }
 
 div.description p {
-	padding-left:3px;
-	padding-right:3px;
+	
 }
 
 div.address {
 	width:210px;
+}
+div.address table tr td {
+	padding: 1px 3px;
 }

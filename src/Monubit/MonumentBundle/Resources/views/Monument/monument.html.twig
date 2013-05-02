@@ -13,10 +13,12 @@
 	</div>
 	<div class="address">
 		{% set loc = monument.location %}
-		<p>Straat: {{ loc.street }}<br>
-		Huisnummer: {{ loc.streetNumber }}{{ loc.streetNumberAppendix }}<br>
-		Postcode: {{ loc.zipCode }}<br>
-		Plaats: {{ loc.town }}</p>
+		<table>
+		<tr><td>Straat:</td><td>{{ loc.street }}</td></tr>
+		<tr><td>Huis nr: </td><td>{{ loc.streetNumber }}{{ loc.streetNumberAppendix }}</td></tr>
+		<tr><td>Postcode:</td><td>{{ loc.zipCode }}</td></tr>
+		<tr><td>Plaats:</td><td>{{ loc.town }}</td></tr>
+		</table>
 	</div>
 </div>
 <div class="right" >
@@ -28,7 +30,6 @@
 		{% endif %}
 	</h1>
 	<div class="description" >
-		<p>Beschrijving:</p>
 		<p>{{ monument.description }}</p>
 	</div>
 </div>
