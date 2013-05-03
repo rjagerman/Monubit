@@ -98,3 +98,16 @@ debugging tools, start Monubit at the following URL:
 	http://localhost/Monubit/web/app_dev.php/
 
 
+8) Running tests
+---------------
+
+All tests are created in PHPUnit, so you need a PHPUnit distribution to
+run them. The `phpunit.xml` file is located in the `/app` directory.
+To run the tests, execute the following:
+
+    phpunit -c app
+
+To run the code coverage you will need to have XDebug installed.
+To run the tests with coverage, execute the following:
+
+    phpunit -c app --coverage-html cov/
