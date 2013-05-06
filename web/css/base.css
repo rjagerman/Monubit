@@ -58,7 +58,7 @@ div#logo {
 }
 
 div#searchbar {
-	width: 485px;
+	width: 480px;
 	padding-left: 20px;
 }
 
@@ -66,7 +66,7 @@ div#searchbar input#searchinput {
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 21px;
-	width: 430px;
+	width: 330px;
 	height: 20px;
 	margin: 21px 0px 21px 10px;
 	padding: 3px;
@@ -91,6 +91,19 @@ div#searchbar input#searchsubmit {
 	cursor: pointer;
 	box-shadow: 3px 0px 3px #ddd;
 	text-indent: -9999px;
+}
+
+div#searchbar select{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 21px;
+	height: 28px;
+	width: 95px;
+	margin: 21px 0px 0px 5px;
+	padding: 3px;
+	border: 1px solid #888;
+	box-shadow: 0px 0px 3px #ddd;
+	border-right: 0px;
 }
 
 div#userbar {
