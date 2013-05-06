@@ -9,20 +9,20 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class SearchController extends Controller {
 	/**
-	 * @Route("/search/{query}/{offset}",
+	 * @Route("/search/{offset}",
 	 *   name="search",
 	 *   requirements={"offset" = "\d+"},
 	 *   defaults={"offset" = 1}
 	 * )
 	 * @Template()
 	 */
-	public function searchAction(Request $request, $query, $offset) {
+	public function searchAction(Request $request, $offset) {
 
 		// Initialize settings
 		$resultsPerPage = 10;
 		$repository = $this->getDoctrine()->getManager()
 				->getRepository('MonubitMonumentBundle:Monument');
-
+		$query = $request->query->get('search');
 		// Create the query for searching
 		$dql = $this->getDoctrine()->getManager()->createQueryBuilder()
 				->select('m')->from('MonubitMonumentBundle:Monument', 'm')

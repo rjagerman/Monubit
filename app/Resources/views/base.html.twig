@@ -19,7 +19,17 @@
     				<a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" /></a>
     			</div>
     			<div id="searchbar">
-    				<form action="{{ path('search', {'query': '__q__'}) }}" id="searchform"><input type="text" name="search" id="searchinput" /><input id="searchsubmit" type="submit" /></form>
+    				<form action="{{ path('search') }}" id="searchform"><input type="text" name="search" id="searchinput" /><input id="searchsubmit" type="submit" />
+    				<select name="type">   
+   					<option value="stad">Stad</option>   
+   					<option value="naam">Naam</option>  
+   					<option value="categorie">Categorie</option>
+   					<option value="straat">Straat</option>   
+   					<option value="gemeente">Gemeente</option>  
+   					<option value="provincie">Provincie</option>
+   					<!-- <option value="tag">col2</option> -->
+   					   
+				</select></form>
     			</div>
     			<div id="userbar">
     			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
