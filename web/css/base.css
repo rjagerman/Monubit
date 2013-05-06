@@ -58,7 +58,7 @@ div#logo {
 }
 
 div#searchbar {
-	width: 485px;
+	width: 480px;
 	padding-left: 20px;
 }
 
@@ -66,7 +66,7 @@ div#searchbar input#searchinput {
 	display: inline-block;
 	vertical-align: top;
 	margin-top: 21px;
-	width: 430px;
+	width: 330px;
 	height: 20px;
 	margin: 21px 0px 21px 10px;
 	padding: 3px;
@@ -93,6 +93,19 @@ div#searchbar input#searchsubmit {
 	text-indent: -9999px;
 }
 
+div#searchbar select{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 21px;
+	height: 28px;
+	width: 95px;
+	margin: 21px 0px 0px 5px;
+	padding: 3px;
+	border: 1px solid #888;
+	box-shadow: 0px 0px 3px #ddd;
+	border-right: 0px;
+}
+
 div#userbar {
 	width: 230px;
 	height: 66px;
@@ -109,4 +122,17 @@ div#main {
 	padding-bottom: 10px;
 	box-shadow: 0 -6px 6px -6px #ccc, 6px 0px 6px -6px #ccc, -6px 0px 6px
 		-6px #ccc;
+}
+
+div#userbar a:link {
+    background-color:#f5f5f5;
+    border:1px solid;
+    border-style:outset;
+    font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+    font-size:100%;
+    line-height:130%;
+    text-decoration:none;
+    font-weight:bold;
+    cursor:pointer;
+    padding:5px 5px 5px 5px;
 }
