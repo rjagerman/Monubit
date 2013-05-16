@@ -10,7 +10,7 @@
 
 <div class="left" >
 	<div class="image" >
-		<img src="{{ monument.image }}" alt="monument image" >
+		<img src="{{ (monument.id ~ '.jpg') | imagine_filter('monument_full') }}" alt="{{ monument.name }}" >
 	</div>
 	<div class="address">
 		{% set loc = monument.location %}
