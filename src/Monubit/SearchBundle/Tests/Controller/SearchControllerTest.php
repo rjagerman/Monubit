@@ -34,7 +34,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testSearchNoResult() {
 
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?search=Bar');
+		$crawler = $this->client->request('GET', '/search?query=Bar');
 
 		// Assert 200 status OK
 		$this
@@ -56,7 +56,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testSearchWithResult() {
 
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?search=Foo');
+		$crawler = $this->client->request('GET', '/search?query=Foo');
 
 		// Assert 200 status OK
 		$this
