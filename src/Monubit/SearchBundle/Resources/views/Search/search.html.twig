@@ -15,7 +15,7 @@ No results found for '{{ query }}'
 {% endif %}
 <ul>
 {% for monument in results %}
-	<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ monument.image }}" /></div><div class="result">
+	<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ (monument.id ~ '.jpg') | imagine_filter('search_thumbnail') }}" /></div><div class="result">
 	{% if monument.name != "" %} {{ monument.name }} {% else %}{{ monument.location.street }} {{ monument.location.streetNumber }}{% endif %}</div></a></li>
 {% endfor %}
 </ul>
@@ -25,11 +25,11 @@ No results found for '{{ query }}'
 <div id="pagination">
 {% spaceless %}
 {% if startpage != endpage %}
-	<a {% if page == 1 %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'offset': page-1}) }}"{% endif %}>«</a>
+	<a {% if page == 1 %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': page-1}) }}"{% endif %}>«</a>
 	{% for i in startpage..endpage %}
-		<a {% if page == i %}class="current inactive"{% else %}href="{{ path('search', {'query': query, 'offset': i}) }}"{% endif %}>{{ i }}</a>
+		<a {% if page == i %}class="current inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': i}) }}"{% endif %}>{{ i }}</a>
 	{% endfor %}
-	<a {% if page >= pages %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'offset': page+1}) }}"{% endif %}>»</a>
+	<a {% if page >= pages %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': page+1}) }}"{% endif %}>»</a>
 {% endif %}
 {% endspaceless %}
 </div>
