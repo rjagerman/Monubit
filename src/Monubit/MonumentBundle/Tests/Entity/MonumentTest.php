@@ -73,6 +73,16 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$this->monument->setSubCategory($subCategory);
 		$this->assertEquals($subCategory, $this->monument->getSubCategory());
 	}
+	
+	public function testTag() {
+		$tag1 = new Tag();
+		$tag2 = new Tag();
+		$this->monument->addTag($tag1);
+		$this->monument->addTag($tag2);
+		$tags = $this->monument->getTags()
+		$this->assertEquals($tag1, $tags.array_shift());
+		$this->assertEquals($tag2, $tags.array_shift());
+	}
 
 	/**
 	 * Tests the image
