@@ -1,3 +1,7 @@
+_imagine:
+    resource: .
+    type:     imagine
+
 #monubit_ratings:
 #    resource: "@MonubitRatingsBundle/Controller/"
 #    type:     annotation
