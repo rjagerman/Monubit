@@ -20,7 +20,11 @@
         "jms/di-extra-bundle": "1.3.*",
         "doctrine/doctrine-fixtures-bundle": "dev-master",
         "liip/functional-test-bundle": "dev-master",
-        "friendsofsymfony/user-bundle": "*"
+        "friendsofsymfony/user-bundle": "*",
+		"egeloen/google-map-bundle": "*",
+		"willdurand/geocoder": "*",
+		"kriswallsmith/buzz": "*",
+        "liip/imagine-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
