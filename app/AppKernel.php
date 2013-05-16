@@ -25,6 +25,7 @@ class AppKernel extends Kernel
         	new FOS\UserBundle\FOSUserBundle(),
 			new Monubit\UserBundle\MonubitUserBundle(),
             new Monubit\RatingsBundle\MonubitRatingsBundle(),
+            new Monubit\TagBundle\MonubitTagBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
