@@ -4,6 +4,7 @@ namespace Monubit\MonumentBundle\Tests\Controller;
 
 use Monubit\MonumentBundle\Entity\Monument;
 use Monubit\MonumentBundle\Entity\Location;
+use Monubit\TagBundle\Entity\Tag;
 
 class MonumentTest extends \PHPUnit_Framework_TestCase {
 
@@ -79,9 +80,9 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$tag2 = new Tag();
 		$this->monument->addTag($tag1);
 		$this->monument->addTag($tag2);
-		$tags = $this->monument->getTags()
-		$this->assertEquals($tag1, $tags.array_shift());
-		$this->assertEquals($tag2, $tags.array_shift());
+		$tags = $this->monument->getTags();
+		$this->assertEquals($tag1, $tags[0]);
+		$this->assertEquals($tag2, $tags[1]);
 	}
 
 	/**
