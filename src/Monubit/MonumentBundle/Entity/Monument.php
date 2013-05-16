@@ -2,6 +2,7 @@
 namespace Monubit\MonumentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A monument
@@ -51,16 +52,22 @@ class Monument {
 	 * @var string
 	 */
 	private $subCategory;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="\Monubit\TagBundle\Entity\Tag", mappedBy="monuments")
+	 * @var tag
+	 */
+	private $tags;
 
 	/**
 	 * @ORM\Column(type="string", length=510, nullable=true)
 	 * @var string
 	 */
 	private $image;
-
-	// usageOnOtherWikis
-
-	// usageOnWikiMediaCommons
+	
+	public function __construct() {
+		$this->tags = new ArrayCollection();
+	}
 
 	/**
 	 * @return int The identifier
@@ -158,6 +165,20 @@ class Monument {
 	 */
 	public function setImage($image) {
 		$this->image = $image;
+	}
+	
+	/**
+	 * @return string The tags
+	 */
+	public function getTags() {
+		return $this->tags;
+	}
+	
+	/**
+	 * @param string $tags The tags
+	 */
+	public function addTag($tag) {
+		$this->tags[] = $tag;
 	}
 
 }

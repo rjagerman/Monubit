@@ -19,19 +19,29 @@
     				<a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" /></a>
     			</div>
     			<div id="searchbar">
-    				<form action="{{ path('search', {'query': '__q__'}) }}" id="searchform"><input type="text" name="search" id="searchinput" /><input id="searchsubmit" type="submit" /></form>
+    				<form action="{{ path('search') }}" id="searchform"><input type="text" name="query" id="searchinput" /><input id="searchsubmit" type="submit" />
+    				<select name="type">   
+   					<option value="stad">Stad</option>   
+   					<option value="naam">Naam</option>  
+   					<option value="categorie">Categorie</option>
+   					<option value="straat">Straat</option>   
+   					<option value="gemeente">Gemeente</option>  
+   					<option value="provincie">Provincie</option>
+   					<!-- <option value="tag">col2</option> -->
+   					   
+				</select></form>
     			</div>
     			<div id="userbar">
     			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
     				<a href="{{ path('fos_user_profile_show') }}">
-    					{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |
+    					{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }}
     				</a>
 	                <a href="{{ path('fos_user_security_logout') }}">
 	                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
 	                </a>
 	            {% else %}
 	                <a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
-	                | <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
+	                <a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>
 	            {% endif %}
     			</div>
     		</div>
