@@ -1,3 +1,8 @@
+monubit_tag:
+    resource: "@MonubitTagBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 _imagine:
     resource: .
     type:     imagine
