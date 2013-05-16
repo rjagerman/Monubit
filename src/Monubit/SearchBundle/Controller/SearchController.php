@@ -9,25 +9,31 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 class SearchController extends Controller {
 	/**
-	 * @Route("/search/{offset}",
-	 *   name="search",
-	 *   requirements={"offset" = "\d+"},
-	 *   defaults={"offset" = 1}
+	 * @Route("/search",
+	 *   name="search"
 	 * )
 	 * @Template()
 	 */
-	public function searchAction(Request $request, $offset) {
+	public function searchAction(Request $request) {
 
 		// Initialize settings
 		$resultsPerPage = 10;
 		$repository = $this->getDoctrine()->getManager()
 				->getRepository('MonubitMonumentBundle:Monument');
-		$query = $request->query->get('search');
+		
+		// Get parameters from request
+		$query = $request->query->get('query');
+		$offset = $request->query->get('offset');
+		if($offset < 1) {
+			$offset = 1;
+		}
+		$type = $request->query->get('type');
+		
 		// Create the query for searching
 		$dql = $this->getDoctrine()->getManager()->createQueryBuilder()
 				->select('m')->from('MonubitMonumentBundle:Monument', 'm')
 				->leftJoin('m.location', 'l');
-				switch ($request->query->get('type'))
+				switch ($type)
 				{
 					case "naam":
 						$dql = $dql ->where('m.name LIKE :query');
@@ -71,7 +77,7 @@ class SearchController extends Controller {
 				->select('count(m)')
 				->from('MonubitMonumentBundle:Monument', 'm')
 				->leftJoin('m.location', 'l');
-	switch ($request->query->get('type'))
+		switch ($type)
 				{
 				case "naam":
 					$dql = $dql ->where('m.name LIKE :query');
@@ -124,7 +130,7 @@ class SearchController extends Controller {
 										+ max(0, min(5, 5 - $offset)),
 								$totalNumberOfPages)));
 
-		return array('results' => $results, 'query' => $query,
+		return array('results' => $results, 'query' => $query, 'type' => $type,
 				'page' => $offset, 'pages' => $totalNumberOfPages,
 				'startpage' => $start, 'endpage' => $end);
 	}
