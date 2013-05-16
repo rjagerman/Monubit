@@ -25,6 +25,7 @@ class AppKernel extends Kernel
         	new FOS\UserBundle\FOSUserBundle(),
 			new Monubit\UserBundle\MonubitUserBundle(),
             new Monubit\RatingsBundle\MonubitRatingsBundle(),
+            new Monubit\TagBundle\MonubitTagBundle(),
 			new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         	new Liip\ImagineBundle\LiipImagineBundle(),
         );
