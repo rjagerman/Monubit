@@ -1,6 +1,6 @@
 <?php
 
-namespace Monubit\MonumentBundle\Tests\Controller;
+namespace Monubit\MonumentBundle\Tests\Entity;
 
 use Monubit\MonumentBundle\Entity\Monument;
 use Monubit\MonumentBundle\Entity\Location;
