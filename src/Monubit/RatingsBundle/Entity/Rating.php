@@ -24,7 +24,7 @@ class Rating {
 	/**
 	 * The id of the monument this rating is for.
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Monubit\MonumentBundle\Entity\Monument")
+	 * @ORM\ManyToOne(targetEntity="\Monubit\MonumentBundle\Entity\Monument", inversedBy="rating")
 	 */
 	private $monument;
 	
@@ -45,7 +45,7 @@ class Rating {
 	/**
 	 * The id of the user who made this rating.
 	 * 
-	 * @ORM\ManyToOne(targetEntity="Monubit\UserBundle\Entity\User")
+	 * @ORM\ManyToOne(targetEntity="\Monubit\UserBundle\Entity\User", inversedBy="rating")
 	 */
 	private $user;
 	
@@ -66,21 +66,21 @@ class Rating {
 	/**
 	 * The rating the user gave to the monument.
 	 * 
-	 * @ORM\Column(type="float", nullable=false)
-	 * @var float
+	 * @ORM\Column(type="smallint", nullable=false)
+	 * @var integer
 	 * 
 	 */
 	private $rating;
 	
 	/**
-	 * @return float the rating
+	 * @return integer the rating
 	 */
 	public function getRating() {
 		return $this->rating;
 	}
 	
 	/**
-	 * @param float the rating
+	 * @param integer the rating
 	 */
 	public function setRating($rate) {
 		$this->rating = $rate;
