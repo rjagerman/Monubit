@@ -17,6 +17,11 @@ $(function() {
 				   		$("#tag-dialog").dialog( "open" );
 				   	}
 			   	});
+			   	$('#tag-dialog').live('keyup', function(e){
+			   	  if (e.keyCode == 13) {
+			   	    $(':button:contains("OK")').click();
+			   	  }
+			   	});
 			   	$( this ).dialog( "close" );
 		   	}
 	    }
