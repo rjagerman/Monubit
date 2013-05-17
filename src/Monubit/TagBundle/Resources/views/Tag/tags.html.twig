@@ -1,0 +1,5 @@
+<div class="tags">
+	{% for tag in monument.tags %}
+	<a href="">{{ tag.tagname }}</a>{% if not loop.last %}, {% endif %}
+	{% endfor %}
+</div>

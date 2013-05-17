@@ -9,11 +9,6 @@
 {{ parent() }}
 <script type="text/javascript" src="{{ asset("http://code.jquery.com/ui/1.10.3/jquery-ui.js") }}"></script>
 <script type="text/javascript" src="{{ asset('bundles/monubitmonument/js/monument.js') }}"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	rooturl = "{{ path('newtag', {'id': monument.id, 'tagname': '__tagname__'}) }}";
-});
-</script>
 {% endblock %}
 
 {% block body %}
@@ -23,53 +18,35 @@ $(document).ready(function() {
 	<div class="image" >
 		<img src="{{ (monument.id ~ '.jpg') | imagine_filter('monument_full') }}" alt="{{ monument.name }}" >
 	</div>
-	<div class="address">
-		{% set loc = monument.location %}
-		<table>
-		<tr><td>Straat:</td><td>{{ loc.street }}</td></tr>
-		<tr><td>Huis nr: </td><td>{{ loc.streetNumber }}{{ loc.streetNumberAppendix }}</td></tr>
-		<tr><td>Postcode:</td><td>{{ loc.zipCode }}</td></tr>
-		<tr><td>Plaats:</td><td>{{ loc.town }}</td></tr>
-		</table>
-		{% if map is defined %}
-		{{ google_map_container(map) }}
-		{{ google_map_js(map) }}
-		{{ google_map_css(map) }}
-		{%  endif %}
-		
-		<div id="dialog-form" title="Voeg een nieuwe tag toe">
-			<p class="validateTips">Heb je een tag waarvan je denkt dat deze relevant is voor dit monument, voeg deze dan toe.</p>
-			<form>
-				<fieldset>
-					<label for="tag">Nieuwe tag: </label>
-					<input type="text" name="tagname" id="tagname" class="text ui-widget-content ui-corner-all" />
-				</fieldset>
-			</form>
-		</div>
-		
-		<button id="tagbutton" >Tag toevoegen</button>
-		
-		{% for tag in monument.tags %}
-			{{ tag.tagname }}
-		{% endfor %}
-		
-	</div>
+	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
 </div>
-<div class="right" >
-{% set name = monument.name %}
+
+<div class="content" >
+	{% set name = monument.name %}
 	<h1>{% if name == "" %}
-			{{ loc.street }} {{ loc.streetNumber }} {{ loc.streetNumberAppendix }}
+			{{ monument.location.street }} {{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
 		{% else %}
 			{{ name }}
 		{% endif %}
 	</h1>
 	<div class="description" >
 		<p>{{ monument.description }}</p>
-		
 	</div>
 </div>
-<div class="recommend" >
-		<h2>Aanbevelingen</h2>
+
+<div class="right">
+	{% if map is defined %}
+		{{ google_map_container(map) }}
+		{{ google_map_js(map) }}
+		{{ google_map_css(map) }}
+	{%  endif %}
+	{% set loc = monument.location %}
+	<table>
+	<tr><td>Straat:</td><td>{{ loc.street }}</td></tr>
+	<tr><td>Huis nr: </td><td>{{ loc.streetNumber }}{{ loc.streetNumberAppendix }}</td></tr>
+	<tr><td>Postcode:</td><td>{{ loc.zipCode }}</td></tr>
+	<tr><td>Plaats:</td><td>{{ loc.town }}</td></tr>
+	</table>
 </div>
 {% endspaceless %}
 {% endblock %}

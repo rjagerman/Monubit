@@ -1,24 +1,29 @@
 $(function() {
-	 $("#dialog-form").dialog({
-	     autoOpen: false,
-	     height: 300,
-	     width: 350,
-	     modal: true,
-	     buttons: {
-	    	 "Voeg de tag toe!": function() {
-	    		 var url = rooturl.replace("__tagname__", $("#tagname").val());
-	    		 $.get(url, function(json) {
-	    			 if(json == "success"){ }
-	    			 else{
-	    				 alert(json.error.message); 
-	    			 }
-	    		 });
-	    		 $( this ).dialog( "close" );
-	    	 }
-	     }
-	 });
-
-  $("#tagbutton").click(function() {
-	  $("#dialog-form").dialog( "open" );
-  });
+	$("#tag-dialog").dialog({
+	    autoOpen: false,
+	    height: 300,
+	    width: 350,
+	    modal: true,
+	    buttons: {
+		   	"Voeg de tag toe!": function() {
+			   	console.log("Voeg tag toe");
+			   	var url = $('#addtag').attr('href').replace("__tag__", $("#tagname").val());
+			   	console.log(url);
+			   	$.get(url, function(json) {
+				   	if(json[0] == "success"){
+				   		$('.tags').replaceWith(json.html);
+				   		$( this ).dialog( "close" );
+				   	} else{
+				   		alert(json.error.message);
+				   	}
+			   	});
+		   	}
+	    }
+	});
+	 
+	$("#addtag").click(function() {
+		$("#tag-dialog").dialog( "open" );
+		return false;
+	});
+	$('#addtag').button();
 });

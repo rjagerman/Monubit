@@ -68,7 +68,6 @@ class Tag {
 	 * @param string $monuments The monuments
 	 */
 	public function addMonument($monument) {
-		$monument->addTag($this);
 		$this->monuments[] = $monument;
 	}
 	

@@ -21,10 +21,11 @@ class TagController extends Controller
     	// Create JSON response
     	$response = new JsonResponse();
     	
-    	// Find tag, or create it if it does not exist
+    	// Find tag
     	$repository = $em->getRepository('MonubitTagBundle:Tag');
     	$tag = $repository->findOneBy(array('tagname' => $tagname));
     	
+    	// Create tag if it does not exist
     	if($tag == null) {
     		$tag = new Tag();
     		$tag->setTagname($tagname);
@@ -34,9 +35,15 @@ class TagController extends Controller
     	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
     	$monument = $repository->find($id);
     	
-    	// Check if monument exists
+    	// Return a JSON error if the monument does not exist
     	if($monument == null) {
-    		$response->setData(array('error' => array('code' => 404, 'message' => 'Monument could not be found')));
+    		$response->setData(array('error' => array('code' => 404, 'message' => 'Monument kon niet worden gevonden')));
+    		return $response;
+    	}
+    	
+    	// Return a JSON error if the tag already exists for given monument
+    	if($monument->getTags()->contains($tag)) {
+    		$response->setData(array('error' => array('code' => 500, 'message' => 'Tag bestaat al in dit monument')));
     		return $response;
     	}
     	
@@ -44,22 +51,16 @@ class TagController extends Controller
     	$monument->addTag($tag);
     	$tag->addMonument($monument);
     	
-    	// Store the monument (and tag)
+    	// Store the monument and tag in the database
     	$em->persist($tag);
     	$em->persist($monument);
     	
     	// Flush the changes to the database
     	$em->flush();
     	
-    	// Notify succesfull response
-    	$response->setData('success');
-    	 
-    	
-    	// monument.addTag(tag);
-    	
-    	// entity manager -> persist(monument);
-    	
-    	// Return the json response
+    	// Notify the client and return a succesfull json response
+    	$html = $this->renderView('MonubitTagBundle:Tag:tags.html.twig', array('monument' => $monument));
+    	$response->setData(array('success', 'html' => $html));
         return $response;
     }
 }
