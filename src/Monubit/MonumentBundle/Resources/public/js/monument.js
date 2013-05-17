@@ -12,11 +12,12 @@ $(function() {
 			   	$.get(url, function(json) {
 				   	if(json[0] == "success"){
 				   		$('.tags').replaceWith(json.html);
-				   		$( this ).dialog( "close" );
 				   	} else{
 				   		alert(json.error.message);
+				   		$("#tag-dialog").dialog( "open" );
 				   	}
 			   	});
+			   	$( this ).dialog( "close" );
 		   	}
 	    }
 	});
