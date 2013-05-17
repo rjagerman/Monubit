@@ -1,9 +1,10 @@
 <?php
 
-namespace Monubit\MonumentBundle\Tests\Controller;
+namespace Monubit\MonumentBundle\Tests\Entity;
 
 use Monubit\MonumentBundle\Entity\Monument;
 use Monubit\MonumentBundle\Entity\Location;
+use Monubit\TagBundle\Entity\Tag;
 
 class MonumentTest extends \PHPUnit_Framework_TestCase {
 
@@ -72,6 +73,16 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$subCategory = 'Test Sub Category';
 		$this->monument->setSubCategory($subCategory);
 		$this->assertEquals($subCategory, $this->monument->getSubCategory());
+	}
+	
+	public function testTag() {
+		$tag1 = new Tag();
+		$tag2 = new Tag();
+		$this->monument->addTag($tag1);
+		$this->monument->addTag($tag2);
+		$tags = $this->monument->getTags();
+		$this->assertEquals($tag1, $tags[0]);
+		$this->assertEquals($tag2, $tags[1]);
 	}
 
 	/**

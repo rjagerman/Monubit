@@ -1,15 +1,12 @@
-div.right, div.left, div.recommend {
-	
-    /*display:inline-block;
-    vertical-align: top;*/
+div.right, div.left, div.content {
     float:left;
 }
 
-div.right {
+div.content {
 	width: 500px;
 }
 
-div.left, div.recommend, div.image {
+div.left, div.right, div.recommend, div.image , div.address {
 	width: 230px;
 }
 
