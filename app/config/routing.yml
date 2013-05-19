@@ -7,11 +7,6 @@ _imagine:
     resource: .
     type:     imagine
 
-#monubit_ratings:
-#    resource: "@MonubitRatingsBundle/Controller/"
-#    type:     annotation
-#    prefix:   /
-
 monubit_user:
     resource: "@MonubitUserBundle/Resources/config/routing.yml"
 
