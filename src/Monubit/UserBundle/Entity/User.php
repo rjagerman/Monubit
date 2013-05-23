@@ -17,6 +17,11 @@ class User extends BaseUser {
 	 */
 	protected $id;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="\Monubit\RatingsBundle\Entity\Rating", mappedBy="user")
+	 */
+	private $rating;
+	
 	public function __construct() {
 		parent::__construct();
 	}

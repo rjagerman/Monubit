@@ -1,7 +1,6 @@
 <?php
 
 namespace Monubit\MonumentBundle\Controller;
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -27,41 +26,64 @@ class MonumentController extends Controller {
 		if ($monument == null) {
 			throw new NotFoundHttpException();
 		}
-
+		$result = array('monument' => $monument);
 
 		$lon = $monument->getLocation()->getLongitude();
 		$lat = $monument->getLocation()->getLatitude();
-		if($lat == 0 && $lon == 0){
-		 return array('monument' => $monument);
+
+		$securityContext = $this->container->get('security.context');
+		$user = $securityContext->getToken()->getUser();
+		$ratingNotInstantiated = true;
+		if ($user != null && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
+			$rating = $em->getRepository('MonubitRatingsBundle:Rating')
+					->findOneBy(array('monument' => $id, 'user' => $user->getId()));
+
+			if (null != $rating) {
+				$result['rating'] = $rating;
+				$ratingNotInstantiated = false;
+			}
 		}
-		else{
+		if($ratingNotInstantiated) {
+			$dql = 	'SELECT COUNT(r.monument) AS amount, SUM(r.rating) AS sumRating FROM Monubit\RatingsBundle\Entity\Rating r WHERE r.monument = ?1';
+			
+			$ratingsData = $em->createQuery($dql)
+			->setParameter(1, $id)
+			->getResult();
+			if(empty($ratingsData)) {
+				$result['rating'] = $ratingsData['sumRating']/$ratingsData['amount'];
+			}
+		}
+
+		
+		if ($lat != 0 || $lon != 0) {
 			/**
 			 * Create the map for on the page.
 			 * @var Ivory\GoogleMapBundle\Model\Map */
 			$map = new Map();
 			$map->setCenter($lon, $lat, true);
-			$map->setZoomControl(ControlPosition::TOP_LEFT, ZoomControlStyle::DEFAULT_);
-			$map->setMapOptions(array(
-			    'disableDefaultUI' => true,
-			    'disableDoubleClickZoom' => true,
-				'zoom' => 16
-			));	
-			$map->setStylesheetOptions(array(
-					'width'  => '225px',
-					'height' => '225px',
-			));
+			$map
+					->setZoomControl(ControlPosition::TOP_LEFT,
+							ZoomControlStyle::DEFAULT_);
+			$map
+					->setMapOptions(
+							array('disableDefaultUI' => true,
+									'disableDoubleClickZoom' => true,
+									'zoom' => 16));
+			$map
+					->setStylesheetOptions(
+							array('width' => '225px', 'height' => '225px',));
 
 			/**
 			 * Create the marker for the monument on the map.
 			 */
 			$marker = new Marker();
 			$marker->setPosition($lon, $lat, true);
-			$marker->setOptions(array(
-					'clickable' => false,
-					'flat'      => true,
-			));
+			$marker
+					->setOptions(
+							array('clickable' => false, 'flat' => true,));
 			$map->addMarker($marker);
-			return array('monument' => $monument, 'map' => $map);
+			$result['map'] = $map;
 		}
+		return $result;
 	}
 }
