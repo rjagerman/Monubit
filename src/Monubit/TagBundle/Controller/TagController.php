@@ -51,6 +51,9 @@ class TagController extends Controller
     	$monument->addTag($tag);
     	$tag->addMonument($monument);
     	
+    	// Update the number of monuments
+    	$tag->setNumberOfMonuments(count($tag->getMonuments()));
+    	
     	// Store the monument and tag in the database
     	$em->persist($tag);
     	$em->persist($monument);

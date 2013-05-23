@@ -1,5 +1,5 @@
 <div class="tags">
-	{% for tag in monument.tags %}
+	{% for tag in monument.tags|slice(0,4) %}
 	<a href="">{{ tag.tagname }}</a>{% if not loop.last %}, {% endif %}
 	{% endfor %}
 </div>

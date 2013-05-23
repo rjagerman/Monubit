@@ -55,6 +55,7 @@ class Monument {
 	
 	/**
 	 * @ORM\ManyToMany(targetEntity="\Monubit\TagBundle\Entity\Tag", mappedBy="monuments")
+	 * @ORM\OrderBy({"numberOfMonuments" = "DESC"})
 	 * @var tag
 	 */
 	private $tags;

@@ -22,6 +22,12 @@ class Tag {
 	 * @var int
 	 */
 	private $id;
+	
+	/**
+	 * @ORM\Column(type="integer")
+	 * @var int
+	 */
+	private $numberOfMonuments;
 
 	/**
 	 * @ORM\ManyToMany(targetEntity="\Monubit\MonumentBundle\Entity\Monument", inversedBy="tags")
@@ -83,6 +89,20 @@ class Tag {
 	 */
 	public function setTagname($tagname) {
 		$this->tagname = $tagname;
+	}
+	
+	/**
+	 * @return int Number of monuments
+	 */
+	public function getNumberOfMonuments() {
+		return $this->numberOfMonuments;
+	}
+	
+	/**
+	 * @param int $numberOfMonuments The number of monuments
+	 */
+	public function setNumberOfMonuments($numberOfMonuments) {
+		$this->numberOfMonuments = $numberOfMonuments;
 	}
 	
 }
