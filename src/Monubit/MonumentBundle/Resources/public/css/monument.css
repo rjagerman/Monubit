@@ -80,6 +80,7 @@ div.tags {
 div.tags a {
 	display:inline-block;
 	margin-right:5px;
+	margin-bottom: 5px;
 	padding-left:3px;
 	padding-right:3px;
 	text-decoration:none;
