@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * A monument
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Monubit\MonumentBundle\Repository\MonumentRepository")
  * @ORM\Table(name="monument")
  */
 class Monument {
