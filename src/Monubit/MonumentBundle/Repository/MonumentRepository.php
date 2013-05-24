@@ -8,7 +8,7 @@ use Monubit\MonumentBundle\Entity\Location;
 use Monubit\TagBundle\Entity\Tag;
 
 /**
- * MonumentRepository
+ * The monument repository
  */
 class MonumentRepository extends EntityRepository {
 	
