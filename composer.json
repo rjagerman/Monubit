@@ -24,7 +24,8 @@
 		"egeloen/google-map-bundle": "*",
 		"willdurand/geocoder": "*",
 		"kriswallsmith/buzz": "*",
-        "liip/imagine-bundle": "dev-master"
+        "liip/imagine-bundle": "dev-master",
+		"genemu/form-bundle": "2.1.*"
     },
     "scripts": {
         "post-install-cmd": [
