@@ -14,12 +14,18 @@ class TagController extends Controller
      * @Route("/newtag/{id}/{tagname}", name="newtag")
      */
     public function newTagAction($id, $tagname)
-    {
+    { 	
     	// Get the entity manager
     	$em = $this->getDoctrine()->getManager();
     	
     	// Create JSON response
     	$response = new JsonResponse();
+    	
+    	// Return a JSON error if the tagname exceeds more than 7 characters
+    	if(strlen($tagname) > 16) {
+    		$response->setData(array('error' => array('code' => 500, 'message' => 'Tag is te lang')));
+    		return $response;
+    	}
     	
     	// Find tag
     	$repository = $em->getRepository('MonubitTagBundle:Tag');
