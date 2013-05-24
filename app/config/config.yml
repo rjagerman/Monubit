@@ -92,5 +92,5 @@ liip_imagine:
         monument_full:
             quality: 100
             filters:
-                thumbnail: { size: [210, 280], mode: inset }
+                thumbnail: { size: [210, 280], mode: outbound }
 
