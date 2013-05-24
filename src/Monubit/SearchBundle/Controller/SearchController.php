@@ -28,6 +28,9 @@ class SearchController extends Controller {
 			$offset = 1;
 		}
 		$type = $request->query->get('type');
+		if($type == null) {
+			$type = 'name';
+		}
 		
 		// Create the necessary criteria
 		$criteria = array($type => $query);

@@ -1,7 +1,7 @@
 <div id="tag-component">
 	<div id="tag-dialog" title="Voeg een nieuwe tag toe">
 		<p class="validateTips">Heb je een tag waarvan je denkt dat deze relevant is voor dit monument, voeg deze dan toe.</p>
-		<form>
+		<form action="{{ path('newtag', {'id': monument.id, 'tagname': '__tag__'}) }}">
 			<fieldset>
 				<label for="tag">Nieuwe tag: </label>
 				<input type="text" name="tagname" id="tagname" class="text ui-widget-content ui-corner-all" />

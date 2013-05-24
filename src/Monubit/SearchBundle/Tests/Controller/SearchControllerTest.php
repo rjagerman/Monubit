@@ -76,7 +76,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testTownSearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=bla&type=stad');
+		$crawler = $this->client->request('GET', '/search?query=bla&type=town');
 	
 		// Assert 200 status OK
 		$this
@@ -97,7 +97,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testTownSearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=Foobar&type=stad');
+		$crawler = $this->client->request('GET', '/search?query=Foobar&type=town');
 	
 		// Assert 200 status OK
 		$this
@@ -117,7 +117,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testNameSearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=booya&type=naam');
+		$crawler = $this->client->request('GET', '/search?query=booya&type=name');
 	
 		// Assert 200 status OK
 		$this
@@ -138,7 +138,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testNameSearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=Foo&type=naam');
+		$crawler = $this->client->request('GET', '/search?query=Foo&type=name');
 	
 		// Assert 200 status OK
 		$this
@@ -158,7 +158,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testCategorySearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=booya&type=categorie');
+		$crawler = $this->client->request('GET', '/search?query=booya&type=mainCategory');
 	
 		// Assert 200 status OK
 		$this
@@ -179,7 +179,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testCategorySearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=foo1&type=categorie');
+		$crawler = $this->client->request('GET', '/search?query=foo1&type=mainCategory');
 	
 		// Assert 200 status OK
 		$this
@@ -200,7 +200,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testCategorySearchWithResult2() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=bar1&type=categorie');
+		$crawler = $this->client->request('GET', '/search?query=bar1&type=subCategory');
 	
 		// Assert 200 status OK
 		$this
@@ -221,7 +221,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testStreetSearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=booya&type=straat');
+		$crawler = $this->client->request('GET', '/search?query=booya&type=street');
 	
 		// Assert 200 status OK
 		$this
@@ -242,7 +242,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testStreetSearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=bar&type=straat');
+		$crawler = $this->client->request('GET', '/search?query=bar&type=street');
 	
 		// Assert 200 status OK
 		$this
@@ -263,7 +263,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testMunicipalitySearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=booya&type=gemeente');
+		$crawler = $this->client->request('GET', '/search?query=booya&type=municipality');
 	
 		// Assert 200 status OK
 		$this
@@ -284,7 +284,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testMunicipalitySearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=bar&type=gemeente');
+		$crawler = $this->client->request('GET', '/search?query=bar&type=municipality');
 	
 		// Assert 200 status OK
 		$this
@@ -305,7 +305,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testProvinceSearchNoResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=booya&type=provincie');
+		$crawler = $this->client->request('GET', '/search?query=booya&type=province');
 	
 		// Assert 200 status OK
 		$this
@@ -326,7 +326,7 @@ class SearchControllerTest extends WebTestCase {
 	public function testProvinceSearchWithResult() {
 	
 		// Perform request
-		$crawler = $this->client->request('GET', '/search?query=bar&type=provincie');
+		$crawler = $this->client->request('GET', '/search?query=bar&type=province');
 	
 		// Assert 200 status OK
 		$this
