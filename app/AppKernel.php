@@ -28,7 +28,7 @@ class AppKernel extends Kernel
             new Monubit\TagBundle\MonubitTagBundle(),
 			new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         	new Liip\ImagineBundle\LiipImagineBundle(),
-			new Genemu\Bundle\FormBundle\GenemuFormBundle(),
+			new CCC\StarRatingBundle\CCCStarRatingBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
