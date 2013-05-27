@@ -1,8 +1,10 @@
 {
     "name": "symfony/framework-standard-edition",
     "description": "The \"Symfony Standard Edition\" distribution",
-    "autoload": {
-        "psr-0": { "": "src/" }
+  	"autoload": {
+        "psr-0": { 
+			"": "src/"
+		}
     },
     "require": {
         "php": ">=5.3.3",
@@ -25,7 +27,7 @@
 		"willdurand/geocoder": "*",
 		"kriswallsmith/buzz": "*",
         "liip/imagine-bundle": "dev-master",
-		"genemu/form-bundle": "2.1.*"
+		"ccc/star-rating-bundle": "dev-master"
     },
     "scripts": {
         "post-install-cmd": [
@@ -45,11 +47,14 @@
         "bin-dir": "bin"
     },
     "minimum-stability": "alpha",
-    "extra": {
+    
+	"extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "branch-alias": {
             "dev-master": "2.2-dev"
         }
     }
+	
+	
 }
