@@ -21,7 +21,7 @@
 	<div class="image" >
 		<img src="{{ (monument.id ~ '.jpg') | imagine_filter('monument_full') }}" alt="{{ monument.name }}" >
 	</div>
-	{{ form_widget(formview) }}
+	{{ form_widget(formview) }}<br/>
 	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
 </div>
 

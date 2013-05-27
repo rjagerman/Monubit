@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "3827928d600f04ef2e710b09eb5ef091",
+    "hash": "fe4a4c3034ac2f3b1ffb46fcaf996b4a",
     "packages": [
         {
             "name": "ccc/star-rating-bundle",
