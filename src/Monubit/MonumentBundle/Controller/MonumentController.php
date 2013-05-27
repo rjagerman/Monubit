@@ -83,6 +83,20 @@ class MonumentController extends Controller {
 							array('clickable' => false, 'flat' => true,));
 			$map->addMarker($marker);
 			$result['map'] = $map;
+			
+
+			/* Hier bouwen we de form met alle keuzes */
+			$form = $this->createFormBuilder();
+			$form ->add('rating', 'star_rating', array(
+					'choices' => array(1 => 'ichi', 2  => 'ni', 3 => 'san', 4=> 'shi', 5 => 'go'),
+					'expanded' => true,  // radio or checkbox...
+					'multiple' => false  // ...but not checkbox
+			));
+			$result['formview'] = $form->getForm()->createView();
+			
+			/*En hier moeten we hem goed renderen... */
+			
+			
 		}
 		return $result;
 	}
