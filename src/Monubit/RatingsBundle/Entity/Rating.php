@@ -35,14 +35,14 @@ class Rating {
 	/**
 	 * The monument this rating is for.
 	 * 
-	 * @ORM\ManyToOne(targetEntity="\Monubit\MonumentBundle\Entity\Monument", inversedBy="rating")
+	 * @ORM\ManyToOne(targetEntity="\Monubit\MonumentBundle\Entity\Monument", inversedBy="ratings")
 	 */
 	private $monument;
 	
 	/**
 	 * The user who made this rating.
 	 *
-	 * @ORM\ManyToOne(targetEntity="\Monubit\UserBundle\Entity\User", inversedBy="rating")
+	 * @ORM\ManyToOne(targetEntity="\Monubit\UserBundle\Entity\User", inversedBy="ratings")
 	 */
 	private $user;
 	
