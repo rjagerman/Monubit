@@ -33,27 +33,6 @@ class MonumentController extends Controller {
 
 		$securityContext = $this->container->get('security.context');
 		$user = $securityContext->getToken()->getUser();
-		$ratingNotInstantiated = true;
-		if ($user != null && $securityContext->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-			$rating = $em->getRepository('MonubitRatingsBundle:Rating')
-					->findOneBy(array('monument' => $id, 'user' => $user->getId()));
-
-			if (null != $rating) {
-				$result['rating'] = $rating;
-				$ratingNotInstantiated = false;
-			}
-		}
-		if($ratingNotInstantiated) {
-			$dql = 	'SELECT COUNT(r.monument) AS amount, SUM(r.rating) AS sumRating FROM Monubit\RatingsBundle\Entity\Rating r WHERE r.monument = ?1';
-			
-			$ratingsData = $em->createQuery($dql)
-			->setParameter(1, $id)
-			->getResult();
-			if(empty($ratingsData)) {
-				$result['rating'] = $ratingsData['sumRating']/$ratingsData['amount'];
-			}
-		}
-
 		
 		if ($lat != 0 || $lon != 0) {
 			/**
@@ -83,19 +62,6 @@ class MonumentController extends Controller {
 							array('clickable' => false, 'flat' => true,));
 			$map->addMarker($marker);
 			$result['map'] = $map;
-			
-
-			/* Hier bouwen we de form met alle keuzes */
-			$form = $this->createFormBuilder();
-			$form ->add('rating', 'star_rating', array(
-					'choices' => array(1 => 'ichi', 2  => 'ni', 3 => 'san', 4=> 'shi', 5 => 'go'),
-					'expanded' => true,  // radio or checkbox...
-					'multiple' => false  // ...but not checkbox
-			));
-			$result['formview'] = $form->getForm()->createView();
-			
-			/*En hier moeten we hem goed renderen... */
-			
 			
 		}
 		return $result;
