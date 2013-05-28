@@ -1,0 +1,13 @@
+<div id="ratings"{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %} class="disabled"{% endif %}>
+<div class="rating">
+<form action="{{ path('ratings_rate', {'id': monument.id, 'rating': '1'}) }}">
+{% for i in 1..5 %}
+<input type="radio" class="auto-submit-star {% if i <= average %} star-rating-avg{% endif %}" name="rating" id="rating{{ i }}" value="{{ i }}" {% if rating == i %}checked{% endif %}{% if not is_granted("IS_AUTHENTICATED_REMEMBERED") %} disabled="disabled"{% endif %} />
+{% endfor %}
+</form>
+<form action="{{ path('ratings_remove', {'id': monument.id}) }}" id="removerating"></form>
+</div>
+<div class="disabledmessage">
+<p>U moet hiervoor ingeloggen</p>
+</div>
+</div>

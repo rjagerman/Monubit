@@ -1,0 +1,16 @@
+div#ratings {
+	width: 200px;
+	text-align: center;
+	padding: 0px 16px;
+	height: 24px;
+}
+div#ratings p {
+	margin: 0px;
+	padding: 0px;
+}
+div.rating {
+	padding: 0px 0px 0px 50px;
+}
+.disabledmessage {
+	display: none;
+}

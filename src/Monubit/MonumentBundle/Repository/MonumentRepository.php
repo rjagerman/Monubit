@@ -13,6 +13,20 @@ use Monubit\TagBundle\Entity\Tag;
 class MonumentRepository extends EntityRepository {
 	
 	/**
+	 * Finds the average rating for given monument
+	 * @param \Monubit\MonumentBundle\Entity\Monument $monument The monument
+	 */
+	public function findAverageRating($monument) {
+		$qb = $this->getEntityManager()->createQueryBuilder();
+		$qb = $qb->select($qb->expr()->avg('r.rating'))
+			->from('MonubitRatingsBundle:rating', 'r')
+			->where('r.monument = :monument')
+			->setParameter('monument', $monument);
+		
+		return $qb->getQuery()->getSingleScalarResult();
+	}
+	
+	/**
 	 * Finds monuments using partial text matching
 	 * 
 	 * @param array $criteria Array of criteria utilising fields and their values

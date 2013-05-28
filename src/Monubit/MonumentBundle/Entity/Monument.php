@@ -67,13 +67,14 @@ class Monument {
 	private $image;
 	
 	/**
-	 * @ORM\OneToMany(targetEntity="\Monubit\RatingsBundle\Entity\Rating", mappedBy="monument")
+	 * @ORM\OneToMany(targetEntity="\Monubit\RatingsBundle\Entity\Rating", mappedBy="monument", fetch="EXTRA_LAZY")
 	 * @var Monubit\RatingsBundle\Entity\Rating
 	 */
-	private $rating;
+	private $ratings;
 	
 	public function __construct() {
 		$this->tags = new ArrayCollection();
+		$this->ratings = new ArrayCollection();
 	}
 
 	/**
@@ -191,12 +192,12 @@ class Monument {
 	/**
 	 * @return the rating of this monument
 	 */
-	public function getRating() {
-		return $this->rating;
+	public function getRatings() {
+		return $this->ratings;
 	}
 	
-	public function setRating($rate) {
-		$this->rating = $rate;
+	public function setRatings($ratings) {
+		$this->ratings = $ratings;
 	}
 
 }

@@ -2,6 +2,11 @@ monubit_tag:
     resource: "@MonubitTagBundle/Controller/"
     type:     annotation
     prefix:   /
+    
+monubit_ratings:
+    resource: "@MonubitRatingsBundle/Controller/"
+    type:     annotation
+    prefix:   /
 
 _imagine:
     resource: .

@@ -22,55 +22,55 @@ class Rating {
 	private $id;
 
 	/**
-	 * The id of the monument this rating is for.
+	 * The monument this rating is for.
 	 * 
 	 * @ORM\ManyToOne(targetEntity="\Monubit\MonumentBundle\Entity\Monument", inversedBy="rating")
 	 */
 	private $monument;
 	
 	/**
-	 * @return integer The monument identifier
+	 * The user who made this rating.
+	 *
+	 * @ORM\ManyToOne(targetEntity="\Monubit\UserBundle\Entity\User", inversedBy="rating")
+	 */
+	private $user;
+	
+	/**
+	 * The rating the user gave to the monument.
+	 *
+	 * @ORM\Column(type="smallint", nullable=false)
+	 * @var integer
+	 *
+	 */
+	private $rating;
+	
+	/**
+	 * @return \Monubit\MonumentBundle\Entity\Monument The monument
 	 */
 	public function getMonument() {
 		return $this->monument;
 	}
 	
 	/**
-	 * @param integer $mId The monument identifier
+	 * @param \Monubit\MonumentBundle\Entity\Monument $mId The monument
 	 */
-	public function setMonument($mId) {
-		$this->Monument = $mId;
+	public function setMonument($monument) {
+		$this->monument = $monument;
 	}
 	
 	/**
-	 * The id of the user who made this rating.
-	 * 
-	 * @ORM\ManyToOne(targetEntity="\Monubit\UserBundle\Entity\User", inversedBy="rating")
-	 */
-	private $user;
-	
-	/**
-	 * @return integer The user identifier
+	 * @return \Monubit\UserBundle\Entity\User The user
 	 */
 	public function getUser() {
 		return $this->user;
 	}
 	
 	/**
-	 * @param integer $uId The user identifier
+	 * @param \Monubit\UserBundle\Entity\User $user The user
 	 */
-	public function setUser($uId) {
-		$this->User = $uId;
+	public function setUser($user) {
+		$this->user = $user;
 	}
-	
-	/**
-	 * The rating the user gave to the monument.
-	 * 
-	 * @ORM\Column(type="smallint", nullable=false)
-	 * @var integer
-	 * 
-	 */
-	private $rating;
 	
 	/**
 	 * @return integer the rating
@@ -80,7 +80,7 @@ class Rating {
 	}
 	
 	/**
-	 * @param integer the rating
+	 * @param integer $rate the rating
 	 */
 	public function setRating($rate) {
 		$this->rating = $rate;
