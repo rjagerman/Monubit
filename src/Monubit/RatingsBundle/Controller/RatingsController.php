@@ -14,6 +14,8 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 class RatingsController extends Controller
 {
     /**
+     * Adds a rating (1-5) to a monument for logged in user
+     * 
 	 * @Route("/rating/rate/{id}/{rating}", name = "ratings_rate",
 	 * 	requirements={"id" = "\d+", "rating" = "1|2|3|4|5"}
 	 * )
@@ -62,6 +64,8 @@ class RatingsController extends Controller
     }
     
     /**
+     * Removes a rating from a given monument for the logged in user
+     * 
      * @Route("/rating/remove/{id}", name = "ratings_remove",
      * 	requirements={"id" = "\d+"}
      * )
@@ -103,6 +107,9 @@ class RatingsController extends Controller
     }
     
     /**
+     * Returns the HTML of the rating field from given monument for the logged in user
+     * or without a rating if the user is not logged in
+     * 
      * @Route("/rating/{id}", name = "ratings_rating",
      * 	requirements={"id" = "\d+"}
      * )
