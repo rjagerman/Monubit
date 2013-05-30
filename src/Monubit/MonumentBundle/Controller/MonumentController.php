@@ -50,7 +50,7 @@ class MonumentController extends Controller {
 									'zoom' => 16));
 			$map
 					->setStylesheetOptions(
-							array('width' => '225px', 'height' => '225px',));
+							array('width' => '220px', 'height' => '220px',));
 
 			/**
 			 * Create the marker for the monument on the map.
