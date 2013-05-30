@@ -2,11 +2,12 @@
 namespace Monubit\MonumentBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * A monument
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Monubit\MonumentBundle\Repository\MonumentRepository")
  * @ORM\Table(name="monument")
  */
 class Monument {
@@ -51,16 +52,30 @@ class Monument {
 	 * @var string
 	 */
 	private $subCategory;
+	
+	/**
+	 * @ORM\ManyToMany(targetEntity="\Monubit\TagBundle\Entity\Tag", mappedBy="monuments")
+	 * @ORM\OrderBy({"numberOfMonuments" = "DESC"})
+	 * @var tag
+	 */
+	private $tags;
 
 	/**
 	 * @ORM\Column(type="string", length=510, nullable=true)
 	 * @var string
 	 */
 	private $image;
-
-	// usageOnOtherWikis
-
-	// usageOnWikiMediaCommons
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="\Monubit\RatingsBundle\Entity\Rating", mappedBy="monument", fetch="EXTRA_LAZY")
+	 * @var Monubit\RatingsBundle\Entity\Rating
+	 */
+	private $ratings;
+	
+	public function __construct() {
+		$this->tags = new ArrayCollection();
+		$this->ratings = new ArrayCollection();
+	}
 
 	/**
 	 * @return int The identifier
@@ -158,6 +173,31 @@ class Monument {
 	 */
 	public function setImage($image) {
 		$this->image = $image;
+	}
+	
+	/**
+	 * @return string The tags
+	 */
+	public function getTags() {
+		return $this->tags;
+	}
+	
+	/**
+	 * @param string $tags The tags
+	 */
+	public function addTag($tag) {
+		$this->tags[] = $tag;
+	}
+	
+	/**
+	 * @return the rating of this monument
+	 */
+	public function getRatings() {
+		return $this->ratings;
+	}
+	
+	public function setRatings($ratings) {
+		$this->ratings = $ratings;
 	}
 
 }

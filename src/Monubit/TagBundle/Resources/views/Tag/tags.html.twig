@@ -1,0 +1,5 @@
+<div class="tags">
+	{% for tag in monument.tags|slice(0,4) %}
+	<a href="{{ path('search', {'query' : tag.tagname, 'type': 'tagname'}) }}">{{ tag.tagname }}</a> {# {% if not loop.last %}, {% endif %} #}
+	{% endfor %}
+</div>
