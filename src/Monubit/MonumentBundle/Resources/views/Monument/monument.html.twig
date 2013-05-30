@@ -23,36 +23,45 @@
 		<img src="{{ (monument.id ~ '.jpg') | imagine_filter('monument_full') }}" alt="{{ monument.name }}" >
 	</div>
 	{% render controller('MonubitRatingsBundle:Ratings:rating', {'id': monument.id}) %}
-	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
+	{% if map is defined %}
+		<div class="maps">
+		{{ google_map_container(map) }}
+		{{ google_map_js(map) }}
+		{{ google_map_css(map) }}
+		</div>
+	{%  endif %}
 </div>
 
 <div class="content" >
 	{% set name = monument.name %}
 	<h1>{% if name == "" %}
-			{{ monument.location.street }} {{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
+			{{ monument.location.street }} 
+			{% if monument.location.streetNumber != 0 %}
+			{{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
+			{% endif %}
 		{% else %}
 			{{ name }}
 		{% endif %}
 	</h1>
+	<div class="address">
+	{% set loc = monument.location %}
+	<p>{{ loc.street }} 
+	{% if monument.location.streetNumber != 0 %}
+		{{ loc.streetNumber }}{{ loc.streetNumberAppendix }}
+	{% endif %} <br/>
+	{{ loc.zipCode }}	{{ loc.town }}</p>
+	</div>
+	
+	
 	<div class="description" >
 		<p>{{ monument.description }}</p>
 	</div>
+	
+	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
 </div>
 
 <div class="right">
-	{% if map is defined %}
-		{{ google_map_container(map) }}
-		{{ google_map_js(map) }}
-		{{ google_map_css(map) }}
-	{%  endif %}
-	{% set loc = monument.location %}
-	<table>
-	<tr><td>Straat:</td><td>{{ loc.street }}</td></tr>
-	<tr><td>Huis nr: </td><td>{{ loc.streetNumber }}{{ loc.streetNumberAppendix }}</td></tr>
-	<tr><td>Postcode:</td><td>{{ loc.zipCode }}</td></tr>
-	<tr><td>Plaats:</td><td>{{ loc.town }}</td></tr>
-	</table>
-	
+	<h2>Aanbevolen</h2>
 </div>
 {% endspaceless %}
 {% endblock %}

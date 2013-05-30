@@ -30,3 +30,7 @@ monubit_monument:
     type:     annotation
     prefix:   /
 
+monubit_maps:
+    resource: "@MonubitMapBundle/Controller/"
+    type:     annotation
+    prefix:   /
