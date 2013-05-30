@@ -26,27 +26,26 @@ div.image img {
 	box-shadow:2px 2px 3px #aaaaaa;
 }
 
-div.address, div.description {
+div.description {
     margin-right:auto;
     margin-left:auto;
 	box-shadow: 0px 0px 6px #FFFAFA;
-	padding-bottom: 20px;
-	margin-bottom: 20px;
+	padding-bottom: 5px;
+	margin-bottom: 5px;
 }
-
-div.description {
-	
-}
-
 div.description p {
 	
 }
 
 div.address {
-	width:210px;
+	width:500px;
+	margin-right:auto;
+    margin-left:auto;
 }
-div.address table tr td {
-	padding: 1px 3px;
+
+div.address p {
+	color: #BBB;
+	font-size: 16px;
 }
 
 a#addtag {
@@ -86,4 +85,12 @@ div.tags a {
 	text-decoration:none;
 	background-color:#E0E0E0;
 	color:#808080;
+}
+
+div#tag-component{
+	margin-bottom: 20px;
+}
+
+div.maps {
+	padding: 5px 5px 5px 5px;
 }
