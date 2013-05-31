@@ -90,5 +90,61 @@ class MonumentControllerTest extends WebTestCase {
 								->count());
 
 	}
+	
+	public function testMapCreated(){
+		// Perform request
+		$crawler = $this->client->request('GET', '/monument/17');
+		
+		// Assert the returned page contains the monument's name
+		$this
+		->assertGreaterThan(0,
+				$crawler
+				->filter(
+						'html:contains("map_canvas")')
+				->count());
+	}
+	
+	
+	public function testNoMapCreated(){
+		// Perform request
+		$crawler = $this->client->request('GET', '/monument/6');
+	
+		// Assert the returned page contains the monument's name
+		$this
+		->assertEquals(0,
+				$crawler
+				->filter(
+						'html:contains("map_canvas")')
+				->count());
+	}
+	
+	public function testMarkerCreated(){
+		// Perform request
+		$crawler = $this->client->request('GET', '/monument/17');
+	
+		// Assert the returned page contains the monument's name
+		$this
+		->assertGreaterThan(0,
+				$crawler
+				->filter(
+						'html:contains("Marker")')
+				->count());
+	}
+	
+	public function testNoMarkerCreated(){
+		// Perform request
+		$crawler = $this->client->request('GET', '/monument/6');
+	
+		// Assert the returned page contains the monument's name
+		$this
+		->assertEquals(0,
+				$crawler
+				->filter(
+						'html:contains("Marker")')
+				->count());
+	}
+	
+	
+
 
 }

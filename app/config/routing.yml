@@ -1,3 +1,17 @@
+monubit_tag:
+    resource: "@MonubitTagBundle/Controller/"
+    type:     annotation
+    prefix:   /
+    
+monubit_ratings:
+    resource: "@MonubitRatingsBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+_imagine:
+    resource: .
+    type:     imagine
+
 monubit_user:
     resource: "@MonubitUserBundle/Resources/config/routing.yml"
 
@@ -16,3 +30,7 @@ monubit_monument:
     type:     annotation
     prefix:   /
 
+monubit_maps:
+    resource: "@MonubitMapBundle/Controller/"
+    type:     annotation
+    prefix:   /
