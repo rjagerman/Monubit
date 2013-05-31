@@ -1,3 +1,8 @@
+monubit_recommendation:
+    resource: "@MonubitRecommendationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 monubit_tag:
     resource: "@MonubitTagBundle/Controller/"
     type:     annotation
