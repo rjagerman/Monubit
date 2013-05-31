@@ -1,5 +1,13 @@
 {% extends '::base.html.twig' %}
 
 {% block body %}
-<img src="{{ asset('bundles/monubitfront/img/home.png') }}" />
+<div id="front_page_images">
+<table>
+<tr>
+<td><img src="{{ asset('bundles/monubitfront/img/Search.png') }}" /></td>
+<td><a href="{{ path("maps") }}"><img src="{{ asset('bundles/monubitfront/img/Explore.png') }}" /></a></td>
+<td><img src="{{ asset('bundles/monubitfront/img/Recommend.png') }}" /></td>
+</div>
+</tr>
+</table>
 {% endblock %}
