@@ -1,16 +1,13 @@
 <?php
 
-namespace Monubit\MonumentBundle\Tests\Controller;
+namespace Monubit\MonumentBundle\Tests\Entity;
 
 use Monubit\MonumentBundle\Entity\Monument;
 use Monubit\MonumentBundle\Entity\Location;
+use Monubit\TagBundle\Entity\Tag;
+use Monubit\RatingsBundle\Entity\Rating;
 
 class MonumentTest extends \PHPUnit_Framework_TestCase {
-
-	/**
-	 * @var Monubit\MonumentBundle\Entity\Monument
-	 */
-	private $monument;
 
 	/**
 	 * Sets up the testing environment
@@ -73,6 +70,16 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$this->monument->setSubCategory($subCategory);
 		$this->assertEquals($subCategory, $this->monument->getSubCategory());
 	}
+	
+	public function testTag() {
+		$tag1 = new Tag();
+		$tag2 = new Tag();
+		$this->monument->addTag($tag1);
+		$this->monument->addTag($tag2);
+		$tags = $this->monument->getTags();
+		$this->assertEquals($tag1, $tags[0]);
+		$this->assertEquals($tag2, $tags[1]);
+	}
 
 	/**
 	 * Tests the image
@@ -82,5 +89,18 @@ class MonumentTest extends \PHPUnit_Framework_TestCase {
 		$this->monument->setImage($image);
 		$this->assertEquals($image, $this->monument->getImage());
 	}
+	
+	/**
+	 * Tests the ratings
+	 */
+	public function testRating() {
+		$rating1 = new Rating();
+		$rating2 = new Rating();
+		$ratings = [$rating1, $rating2];
+		$this->monument->setRatings($ratings);
+		$this->assertEquals($rating1, $this->monument->getRatings()[0]);
+		$this->assertEquals($rating2, $this->monument->getRatings()[1]);
+	}
+	
 
 }

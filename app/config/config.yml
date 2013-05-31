@@ -69,3 +69,28 @@ fos_user:
     db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
     firewall_name: main
     user_class: Monubit\UserBundle\Entity\User
+
+# Liip Imagine Configuration
+liip_imagine:
+    driver:               gd
+    web_root:             %kernel.root_dir%/../web
+    data_root:            %kernel.root_dir%/../images
+    cache_mkdir_mode:     0777
+    cache_prefix:         /media/cache
+    cache:                web_path
+    cache_clearer:        true
+    data_loader:          filesystem
+    controller_action:    liip_imagine.controller:filterAction
+    formats:              []
+    filter_sets:
+        # Search Thumbnails
+        search_thumbnail:
+            quality: 100
+            filters:
+                thumbnail: { size: [64, 48], mode: inset }
+        # Monument Page image
+        monument_full:
+            quality: 100
+            filters:
+                thumbnail: { size: [210, 280], mode: outbound }
+
