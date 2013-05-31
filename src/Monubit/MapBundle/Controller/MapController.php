@@ -11,6 +11,8 @@ use Ivory\GoogleMap\Overlays\Marker;
 use Ivory\GoogleMap\Controls\ControlPosition;
 use Ivory\GoogleMap\Controls\ZoomControl;
 use Ivory\GoogleMap\Controls\ZoomControlStyle;
+use Ivory\GoogleMap\Controls\StreetViewControl;
+
 
 class MapController extends Controller
 {
@@ -30,9 +32,13 @@ class MapController extends Controller
     	->getQuery()
     	->getResult();
     	
+    	$streetViewControl = new StreetViewControl();
+    	
         $map = new Map();
 		$map->setCenter(52.0833, 5.1333, true);
 		$map->setZoomControl(ControlPosition::TOP_LEFT,	ZoomControlStyle::DEFAULT_);
+		$map->setStreetViewControl($streetViewControl);
+		$map->setStreetViewControl(ControlPosition::TOP_LEFT);
 		$map->setMapOptions(
 				array('disableDefaultUI' => true,
 					  	'disableDoubleClickZoom' => true,
