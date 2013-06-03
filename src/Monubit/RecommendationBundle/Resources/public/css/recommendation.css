@@ -1,0 +1,29 @@
+div.recommended ul li div.image {
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	width: 48px;
+	height: 64px;
+	margin: 1px;
+	text-align: center;
+	border: 1px solid #eee;
+	background: #eee;
+}
+
+div.recommended ul li div.image img {
+	height: 64px;
+	width: 48px;
+}
+
+div.recommended ul li div.result {
+	display: inline-block;
+	vertical-align: top;
+	line-height: 68px;
+	height: 68px;
+	padding: 0px 8px;
+	margin-bottom: 20px;
+}
+
+div.recommended ul {
+	list-style-type: none;
+}
