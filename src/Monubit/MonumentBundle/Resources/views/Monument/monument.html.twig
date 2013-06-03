@@ -54,7 +54,7 @@
 	
 	
 	<div class="description" >
-		<p>{{ monument.description }}</p>
+		<p>{{ monument.description|raw }}</p>
 	</div>
 	
 	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
