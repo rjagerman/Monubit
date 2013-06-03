@@ -29,6 +29,7 @@ class AppKernel extends Kernel
 			new FOS\UserBundle\FOSUserBundle(),
 			new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         	new Liip\ImagineBundle\LiipImagineBundle(),
+            new Monubit\RecommendationBundle\MonubitRecommendationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

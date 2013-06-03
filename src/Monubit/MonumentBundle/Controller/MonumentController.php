@@ -30,9 +30,6 @@ class MonumentController extends Controller {
 
 		$lon = $monument->getLocation()->getLongitude();
 		$lat = $monument->getLocation()->getLatitude();
-
-		$securityContext = $this->container->get('security.context');
-		$user = $securityContext->getToken()->getUser();
 		
 		if ($lat != 0 || $lon != 0) {
 			/**
