@@ -29,7 +29,9 @@ def getConcatenatedString(documents, field_weights):
 def getDatabase():
     dbhost = config.parameters.get('database_host')
     dbuser = config.parameters.get('database_user')
-    dbpassword = str(config.parameters.get('database_password'))
+    dbpassword = config.parameters.get('database_password') 
+    if dbpassword == None:
+	    dbpassword = ''
     dbname = config.parameters.get('database_name')
     db = MySQLdb.connect(dbhost, dbuser, dbpassword, dbname, cursorclass=MySQLdb.cursors.DictCursor)
     return db.cursor()
