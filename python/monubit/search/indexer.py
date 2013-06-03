@@ -26,7 +26,7 @@ if not os.path.exists(config.data_directory):
 # Get all monument features
 print '\033[1;33mObtaining monument features from the database\033[0;m'
 monuments = database.getMonuments()
-field_weights = {'name': 5, 'description': 2, 'town': 4, 'subCategory': 2, 'street': 1, 'province': 1, 'zipCode': 1}
+field_weights = {'name': 2, 'description': 2, 'town': 4, 'mainCategory': 10, 'subCategory': 50, 'street': 1, 'province': 1, 'zipCode': 1}
 ids = [monument['id'] for monument in monuments]
 monuments = database.getConcatenatedString(monuments, field_weights)
 
@@ -68,9 +68,10 @@ print '\033[1;33mSaving tfidf model to file\033[0;m'
 tfidf.save(config.data_directory + '/monuments.tfidf')
 
 # Generate latent semantic index
-lsi_num_topics = 500
+lsi_num_topics = 100
 print '\033[1;33mGenerating latent semantic index model with ' + str(lsi_num_topics) + ' topics\033[0;m'
 lsi = models.LsiModel(corpus, id2word=dictionary, num_topics=lsi_num_topics)
+lsi.print_topics(lsi_num_topics)
 
 # Save the latent semantic index
 print '\033[1;33mSaving latent semantic index to file\033[0;m'

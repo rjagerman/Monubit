@@ -26,17 +26,23 @@ def query(query, offset):
     lsiIndex = similarities.Similarity.load(config.data_directory + '/monuments.lsi.index')
 
     # Convert query to a document
+    query = (query + ' ')*20
+    #print query
     tokenized = tokenizer.tokenize(query)
     vec_bow = dictionary.doc2bow(tokenized)
     
     # Determine how similar the query is to the other documents
     # and select the most similar documents
-    similarity_treshold = 0.2
+    similarity_treshold = 0
     vec_tfidf = tfidf[vec_bow]
+    vec_tfidf = vec_bow
+    #print vec_tfidf
     vec_lsi = lsi[vec_bow]
     sims_tfidf = tfidfIndex[vec_tfidf]
     sims_lsi = lsiIndex[vec_lsi]
-    sims_avg = (np.array(sims_lsi) + 2 * np.array(sims_tfidf)) / 3
+    sims_avg = (np.array(sims_lsi) + np.array(sims_tfidf)) / 2
+    #sims_avg = sims_lsi
+    #sims_avg = sims_tfidf
     sims_avg = sorted(enumerate(sims_avg), key=lambda item: -item[1])
     sims = sims_avg
     sims = [s for s in sims if s[1] > similarity_treshold]

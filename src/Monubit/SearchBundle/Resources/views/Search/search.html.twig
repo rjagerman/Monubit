@@ -21,7 +21,8 @@ No results found for '{{ query }}'
 		{% if monument.location.streetNumber != 0 %}
 			{{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
 		{% endif %}
-	{% endif %}</div></a></li>
+	{% endif %}
+	({{ monument.location.town }})</div></a></li>
 {% endfor %}
 </ul>
 </div>

@@ -8,10 +8,12 @@ stoplist = [line.strip() for line in open('monubit/search/stoplist.txt')]
 def tokenize(str):
 
     # Extract tokens
-    tokens = re.sub('[^a-zA-Z0-9]', ' ', str.lower()).split()
+    str = re.sub('-', '', str.lower())
+    tokens = re.sub('[^a-zA-Z0-9]', ' ', str).split()
     
     # Find unigrams by removing stopwords
     unigrams = [token for token in tokens if token not in stoplist]
+    #unigrams = list(set(unigrams))
     
     # Find bigrams by combining unigrams
     #bigrams = []
