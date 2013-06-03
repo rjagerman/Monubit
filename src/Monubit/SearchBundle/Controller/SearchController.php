@@ -40,12 +40,13 @@ class SearchController extends Controller {
 		
 		// Get the total number of results
 		$totalNumberOfResults = $repository->findCountLike($criteria);
-		$totalNumberOfPages = $totalNumberOfResults / $resultsPerPage;
+		$totalNumberOfPages = ceil($totalNumberOfResults / $resultsPerPage);
 
 		// Create pagination start and end indices
 		$adjacentPages = 4;
 		$start = max(1, min($offset - $adjacentPages, $totalNumberOfPages));
 		$end = max(1, min($offset + $adjacentPages, $totalNumberOfPages));
+		
 
 		// Return the found results to the template
 		return array('results' => $results, 'query' => $query, 'type' => $type,
