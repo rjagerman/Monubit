@@ -27,10 +27,14 @@ class MapController extends Controller
     	
     	$em = $this->getDoctrine();
     	$monuments = $em->getRepository('MonubitMonumentBundle:Monument')->createQueryBuilder('mon')
-    	//->where('mon.town LIKE \'%'.$town.'%\'')
-    	->where('mon.name LIKE \'%Amsterdam%\'')
+    	->leftJoin('mon.location', 'loc')
+    	->where('mon.description NOT LIKE \'%huis%\'')
+    	->andWhere('mon.description NOT LIKE \'%huiz%\'')
+    	->andWhere('mon.description NOT LIKE \'%pand%\'')
+    	->groupBy('loc.town')
     	->getQuery()
     	->getResult();
+    	  	
     	
     	$streetViewControl = new StreetViewControl();
     	
@@ -44,22 +48,27 @@ class MapController extends Controller
 					  	'disableDoubleClickZoom' => true,
 						'zoom' => 8));
 		$map->setStylesheetOptions(array('width' => '950px', 'height' => '625px',));
-		
+		$count = 0;
 								
 			foreach($monuments as $monument){
 				$lon = $monument->getLocation()->getLongitude();
 				$lat = $monument->getLocation()->getLatitude();
-				
+				$count++;
 				if ($lat != 0 || $lon != 0) {
 					/**
 					 * Create the marker for the monument on the map.
 					 */
+
 					$marker = new Marker();
 					$marker->setPosition($lon, $lat, true);
-					$marker
+					/*$marker
 					->setOptions(
-							array('clickable' => true, 'flat' => true,));
+							array('clickable' => true, 'flat' => true,));*/
 					$map->addMarker($marker);
+				}
+				if($count>500) {
+					$result['map'] = $map;
+					return $result;
 				}
 			}		
 			$result['map'] = $map;
