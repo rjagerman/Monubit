@@ -26,7 +26,6 @@ def query(query, offset):
     lsiIndex = similarities.Similarity.load(config.data_directory + '/monuments.lsi.index')
 
     # Convert query to a document
-    query = (query + ' ')*20
     #print query
     tokenized = tokenizer.tokenize(query)
     vec_bow = dictionary.doc2bow(tokenized)
@@ -42,7 +41,7 @@ def query(query, offset):
     sims_lsi = lsiIndex[vec_lsi]
     sims_avg = (np.array(sims_lsi) + np.array(sims_tfidf)) / 2
     #sims_avg = sims_lsi
-    #sims_avg = sims_tfidf
+    sims_avg = sims_tfidf
     sims_avg = sorted(enumerate(sims_avg), key=lambda item: -item[1])
     sims = sims_avg
     sims = [s for s in sims if s[1] > similarity_treshold]

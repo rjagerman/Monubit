@@ -24,23 +24,29 @@ if not os.path.exists(config.data_directory):
     os.makedirs(config.data_directory)
 
 # Get all monument features
-print '\033[1;33mObtaining monument features from the database\033[0;m'
+print '\033[1;33mObtaining monument information from the database\033[0;m'
 monuments = database.getMonuments()
-field_weights = {'name': 2, 'description': 2, 'town': 4, 'mainCategory': 10, 'subCategory': 50, 'street': 1, 'province': 1, 'zipCode': 1}
-ids = [monument['id'] for monument in monuments]
-monuments = database.getConcatenatedString(monuments, field_weights)
 
 # Save monuments identifiers
 print '\033[1;33mSaving monument identifiers to file\033[0;m'
+ids = [monument['id'] for monument in monuments]
 pickle.dump(ids, open(config.data_directory + '/monuments.ids', 'w'))
+
+# Normalize fields based on description length
+print '\033[1;33mNormalizing features based on description length\033[0;m'
+monument_texts = []
+for idx, monument in enumerate(monuments):
+    w = max(int(round((len(tokenizer.tokenize(monument['description']))/5))), 1)
+    field_weights = {'name': w, 'description': 1, 'town': w, 'mainCategory': w, 'subCategory': w, 'street': w, 'province': w, 'zipCode': w}
+    monument_texts.append(database.getConcatenatedString(monument, field_weights))
 
 # Tokenise all the descriptions
 print '\033[1;33mTokenizing monuments\033[0;m'
-monuments = [[word for word in tokenizer.tokenize(monument) if len(word) > 2] for monument in monuments]
+monuments_tokens = [[word for word in tokenizer.tokenize(monument_text) if len(word) > 2] for monument_text in monument_texts]
 
 # Generate the dictionary
 print '\033[1;33mGenerating dictionary\033[0;m'
-dictionary = corpora.Dictionary(monuments)
+dictionary = corpora.Dictionary(monuments_tokens)
 stoplist = [line.strip() for line in open('monubit/search/stoplist.txt')]
 stop_ids = [dictionary.token2id[stopword] for stopword in stoplist if stopword in dictionary.token2id]
 #once_ids = [tokenid for tokenid, docfreq in dictionary.dfs.iteritems() if docfreq == 1]
@@ -53,7 +59,7 @@ dictionary.save(config.data_directory + '/monuments.dict')
 
 # Convert descriptions to vectors
 print '\033[1;33mConverting descriptions to vectors\033[0;m'
-corpus = [dictionary.doc2bow(monument) for monument in monuments]
+corpus = [dictionary.doc2bow(monument_tokens) for monument_tokens in monuments_tokens]
 
 # Save the corpus
 print '\033[1;33mSaving corpus to file\033[0;m'

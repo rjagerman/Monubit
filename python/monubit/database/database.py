@@ -16,13 +16,10 @@ def getMonuments():
     return monuments
    
 # Returns a concatenated string from given documents using given fields and weights   
-def getConcatenatedString(documents, field_weights):
-    result = []
-    for document in documents:
-        text = ''
-        for field in field_weights:
-            text = text + ' ' + ((document[field]+' ') * field_weights[field])
-        result.append(text)
+def getConcatenatedString(document, field_weights):
+    result = ''
+    for field in field_weights:
+        result = result + ' ' + ((document[field]+' ') * field_weights[field])
     return result
 
 # Returns a connection to the database

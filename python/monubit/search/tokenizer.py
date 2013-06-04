@@ -16,9 +16,10 @@ def tokenize(str):
     #unigrams = list(set(unigrams))
     
     # Find bigrams by combining unigrams
-    #bigrams = []
-    #for i in xrange(0, len(tokens)-1):
-    #    bigrams.append(tokens[i] + ' ' + tokens[i+1])
+    bigrams = []
+    for i in xrange(0, len(unigrams)-1):
+        if unigrams[i] != unigrams[i+1]:
+            bigrams.append(unigrams[i] + ' ' + unigrams[i+1])
 
     # Find trigrams by combining unigrams
     #trigrams = []
