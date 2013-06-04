@@ -16,7 +16,7 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 # Queries the monuments with given query and offset
 def query(query, offset):
 
-    # Load data
+    # Load the indexed data
     ids = pickle.load(open(config.data_directory + '/monuments.ids', 'r'))
     dictionary = corpora.Dictionary.load(config.data_directory + '/monuments.dict')
     corpus = corpora.MmCorpus(config.data_directory + '/monuments.mm') 
@@ -25,31 +25,29 @@ def query(query, offset):
     tfidfIndex = similarities.Similarity.load(config.data_directory + '/monuments.tfidf.index')
     lsiIndex = similarities.Similarity.load(config.data_directory + '/monuments.lsi.index')
 
-    # Convert query to a document
-    #print query
+    # Convert query to a tokenized document and project it as a vector in tfidf and lsi
     tokenized = tokenizer.tokenize(query)
-    vec_bow = dictionary.doc2bow(tokenized)
+    vector = dictionary.doc2bow(tokenized)
+    tfidf_vector = tfidf[vector]
+    lsi_vector = lsi[vector]
     
-    # Determine how similar the query is to the other documents
-    # and select the most similar documents
-    similarity_treshold = 0
-    vec_tfidf = tfidf[vec_bow]
-    vec_tfidf = vec_bow
-    #print vec_tfidf
-    vec_lsi = lsi[vec_bow]
-    sims_tfidf = tfidfIndex[vec_tfidf]
-    sims_lsi = lsiIndex[vec_lsi]
-    sims_avg = (np.array(sims_lsi) + np.array(sims_tfidf)) / 2
-    #sims_avg = sims_lsi
-    sims_avg = sims_tfidf
-    sims_avg = sorted(enumerate(sims_avg), key=lambda item: -item[1])
-    sims = sims_avg
-    sims = [s for s in sims if s[1] > similarity_treshold]
+    # Determine how similar the query vector is to the other documents in
+    # the same spaces (tfidf and lsi), and select the most similar documents
+    tfidf_similarity = tfidfIndex[tfidf_vector]
+    lsi_similarity = lsiIndex[lsi_vector]
+    similarity = np.array(lsi_similarity) * np.array(tfidf_similarity)
+    similarity = sorted(enumerate(similarity), key=lambda item: -item[1])
+    sims = similarity
+    sims = [s for s in sims if s[1] > 0]
     offset = int(min(offset, len(sims)))
     results = [ids[sim[0]] for sim in sims[offset:int(min(offset+10, len(sims)))]]
     
     # Print json result
-    print json.dumps({'nrOfResults': len(sims), 'startResult': offset, 'endResult': min(offset+10, len(sims)), 'results': results})
+    print json.dumps({
+        'nrOfResults': len(sims),
+        'startResult': offset,
+        'endResult': min(offset+10, len(sims)),
+        'results': results})
     
 
 # Main executable
@@ -63,7 +61,7 @@ def main(argv):
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'test.py -q <query> -o <offset>'
+            print 'query.py -q <query> -o <offset>'
             sys.exit()
         elif opt in ("-q", "--query"):
             q = arg

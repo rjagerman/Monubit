@@ -11,23 +11,5 @@ def tokenize(str):
     str = re.sub('-', '', str.lower())
     tokens = re.sub('[^a-zA-Z0-9]', ' ', str).split()
     
-    # Find unigrams by removing stopwords
-    unigrams = [token for token in tokens if token not in stoplist]
-    #unigrams = list(set(unigrams))
-    
-    # Find bigrams by combining unigrams
-    bigrams = []
-    for i in xrange(0, len(unigrams)-1):
-        if unigrams[i] != unigrams[i+1]:
-            bigrams.append(unigrams[i] + ' ' + unigrams[i+1])
-
-    # Find trigrams by combining unigrams
-    #trigrams = []
-    #for i in xrange(0, len(tokens)-2):
-    #    trigrams.append(tokens[i] + ' ' + tokens[i+1] + ' ' + tokens[i+2])
-    
-    result = []
-    result.extend(unigrams)
-    #result.extend(bigrams)
-    #result.extend(trigrams)
-    return result
+    # Return the unigrams after removing stopwords
+    return [token for token in tokens if token not in stoplist]

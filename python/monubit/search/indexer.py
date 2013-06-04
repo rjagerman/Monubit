@@ -23,7 +23,7 @@ logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=lo
 if not os.path.exists(config.data_directory):
     os.makedirs(config.data_directory)
 
-# Get all monument features
+# Get all monuments from the database
 print '\033[1;33mObtaining monument information from the database\033[0;m'
 monuments = database.getMonuments()
 
@@ -32,12 +32,21 @@ print '\033[1;33mSaving monument identifiers to file\033[0;m'
 ids = [monument['id'] for monument in monuments]
 pickle.dump(ids, open(config.data_directory + '/monuments.ids', 'w'))
 
-# Normalize fields based on description length
+# Select and normalize features based on description length
 print '\033[1;33mNormalizing features based on description length\033[0;m'
 monument_texts = []
 for idx, monument in enumerate(monuments):
-    w = max(int(round((len(tokenizer.tokenize(monument['description']))/5))), 1)
-    field_weights = {'name': w, 'description': 1, 'town': w, 'mainCategory': w, 'subCategory': w, 'street': w, 'province': w, 'zipCode': w}
+    normalized = max(int(round((len(tokenizer.tokenize(monument['description']))/2))), 1)
+    field_weights = {
+        'name': 1,
+        'description': 1,
+        'town': normalized,
+        'mainCategory': normalized,
+        'subCategory': normalized,
+        'street': 1,
+        'province': normalized,
+        'zipCode': 1
+    }
     monument_texts.append(database.getConcatenatedString(monument, field_weights))
 
 # Tokenise all the descriptions
@@ -49,7 +58,6 @@ print '\033[1;33mGenerating dictionary\033[0;m'
 dictionary = corpora.Dictionary(monuments_tokens)
 stoplist = [line.strip() for line in open('monubit/search/stoplist.txt')]
 stop_ids = [dictionary.token2id[stopword] for stopword in stoplist if stopword in dictionary.token2id]
-#once_ids = [tokenid for tokenid, docfreq in dictionary.dfs.iteritems() if docfreq == 1]
 dictionary.filter_tokens(stop_ids)
 dictionary.compactify()
 
