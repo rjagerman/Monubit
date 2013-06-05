@@ -7,9 +7,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Process\Process;
+use Monubit\SearchBundle\Entity\Pagination;
+use Monubit\SearchBundle\Entity\Query;
+use Monubit\SearchBundle\Entity\Results;
 
 class SearchController extends Controller {
-	
+
 	/**
 	 * @Route("/search",
 	 *   name="search"
@@ -17,77 +20,50 @@ class SearchController extends Controller {
 	 * @Template()
 	 */
 	public function searchAction(Request $request) {
-		
-		// Initialize settings
-		$repository = $this->getDoctrine()->getManager()
-				->getRepository('MonubitMonumentBundle:Monument');
-		
-		// Get parameters from request
-		$query = $request->query->get('query');
-		$offset = $request->query->get('offset');
-		if($offset < 1) {
-			$offset = 1;
-		}
-		$type = $request->query->get('type');
-		if($type == null) {
-			$type = 'name';
-		}
-		
-		// Create the necessary criteria
-		//$criteria = array($type => $query);
-		
-		// Get the results
-		//$results = $repository->findLike($criteria, $resultsPerPage, ($offset-1) * $resultsPerPage);
-		
-		// Get the total number of results
-		//$totalNumberOfResults = $repository->findCountLike($criteria);
-		
-		// Get the search results
-		$resultsPerPage = 10;
-		$results = $this->getSearchResults($query, $offset, $resultsPerPage);
-		
-		// Create pagination start and end indices
-		$totalNumberOfResults = $results['totalNumberOfResults'];
-		$totalNumberOfPages = ceil($totalNumberOfResults / $resultsPerPage);
-		$adjacentPages = 4;
-		$start = max(1, min($offset - $adjacentPages, $totalNumberOfPages));
-		$end = max(1, min($offset + $adjacentPages, $totalNumberOfPages));
 
-		// Return the found results to the template
-		return array('results' => $results['monuments'], 'query' => $query, 'type' => $type,
-				'page' => $offset, 'pages' => $totalNumberOfPages,
-				'startpage' => $start, 'endpage' => $end);
+		// Construct query from the request parameters
+		$query = new Query($request->query->get('query'),
+				$request->query->get('page'));
+
+		// Get the search results
+		$results = $this->getSearchResults($query);
+
+		// Create pagination for the search results
+		$pagination = new Pagination($results);
+
+		// Render the template with the results and pagination
+		return array('results' => $results, 'pagination' => $pagination);
 	}
-	
+
 	/**
 	 * Gets the search results for running given query from given offset
 	 * 
-	 * @param string $query The query
-	 * @param int $offset The offset
-	 * @return array The array of results
+	 * @param \Monubit\SearchBundle\Entity\Query $query The query
+	 * @return \Monubit\SearchBundle\Entity\Results The results
 	 */
-	protected function getSearchResults($query, $offset, $resultsPerPage) {
-		$cleanoffset = ($offset-1) * $resultsPerPage;
-		$cleanquery = preg_replace('/[^a-zA-Z0-9]+/', ' ', $query);
-		
-		$command = 'python -m monubit.search.query -q "' . $cleanquery . '" -o ' . $cleanoffset;
+	protected function getSearchResults($query) {
+
+		// Construct and execute python search command
+		$command = 'python -m monubit.search.query -q "' . $query->getSafeQuery()
+				. '" -o ' . $query->getOffset();
 		$folder = $this->get('kernel')->getRootDir() . '/../python';
 		$process = new Process($command);
 		$process->setWorkingDirectory($folder);
 		$process->run();
-		
-		$monuments = array();
-		$totalNumberOfResults = 0;
+
+		// Iterate over the results and construct a results object
+		$results = new Results($query);
 		if ($process->isSuccessful()) {
-			$results = json_decode($process->getOutput());
-			$totalNumberOfResults = $results->nrOfResults;
-			$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
-			foreach($results->results as $id) {
-				$monuments[] = $repository->find($id);
+			$response = json_decode($process->getOutput());
+			$results->setNumberOfResults($response->nrOfResults);
+			$repository = $this->getDoctrine()->getManager()
+					->getRepository('MonubitMonumentBundle:Monument');
+			foreach ($response->results as $id) {
+				$results->addMonuments($repository->find($id));
 			}
 		}
-		
-		return array('monuments' => $monuments, 'totalNumberOfResults' => $totalNumberOfResults);
+
+		return $results;
 	}
-	
+
 }

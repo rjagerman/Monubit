@@ -10,11 +10,11 @@
 
 {# Search results #}
 <div id="searchresults">
-{% if results is empty %}
-No results found for '{{ query }}'
+{% if results.monuments is empty %}
+No results found for '{{ results.query.query }}'
 {% endif %}
 <ul>
-{% for monument in results %}
+{% for monument in results.monuments %}
 	<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ (monument.id ~ '.jpg') | imagine_filter('search_thumbnail') }}" /></div><div class="result">
 	{% if monument.name != "" %} {{ monument.name }} 
 	{% else %}{{ monument.location.street }} 
@@ -30,12 +30,30 @@ No results found for '{{ query }}'
 {# Pagination bar #}
 <div id="pagination">
 {% spaceless %}
-{% if startpage != endpage %}
-	<a {% if page == 1 %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': page-1}) }}"{% endif %}>«</a>
-	{% for i in startpage..endpage %}
-		<a {% if page == i %}class="current inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': i}) }}"{% endif %}>{{ i }}</a>
+{% if pagination.getStartPage() != pagination.getEndPage() %}
+	<a
+	{% if pagination.getCurrentPage() == 1 %}
+		class="inactive"
+	{% else %}
+		href="{{ path('search', {'query': results.query.query, 'page': pagination.getCurrentPage()-1}) }}"
+	{% endif %}>«</a>
+	
+	{% for i in pagination.getStartPage()..pagination.getEndPage() %}
+		<a 
+		{% if pagination.getCurrentPage() == i %}
+			class="current inactive"
+		{% else %}
+			href="{{ path('search', {'query': results.query.query, 'page': i}) }}"
+		{% endif %}
+		>{{ i }}</a>
 	{% endfor %}
-	<a {% if page >= pages %}class="inactive"{% else %}href="{{ path('search', {'query': query, 'type': type, 'offset': page+1}) }}"{% endif %}>»</a>
+	
+	<a 
+	{% if pagination.getCurrentPage() >= pagination.getNumberOfPages() %}
+		class="inactive"
+	{% else %}
+		href="{{ path('search', {'query': results.query.query, 'page': pagination.getCurrentPage()+1}) }}"
+	{% endif %}>»</a>
 {% endif %}
 {% endspaceless %}
 </div>
