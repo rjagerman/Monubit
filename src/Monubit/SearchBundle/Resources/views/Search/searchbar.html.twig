@@ -1,0 +1,6 @@
+{% spaceless %}
+<form action="{{ path('search') }}" id="searchform">
+<input type="text" name="query" id="searchinput" value="{%  if 'query' in app.request.query.all|keys %}{{ app.request.query.all['query']|e }}{% endif %}" />
+<input id="searchsubmit" type="submit" />
+</form>
+{% endspaceless %}
