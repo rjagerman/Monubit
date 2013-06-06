@@ -4,7 +4,7 @@
     <p>{{ 'profile.show.email'|trans({}, 'FOSUserBundle') }}: {{ user.email }}</p>
     <h2>Mijn ratings</h2>
     <ul>
-	{% for rating in user.ratings %}
+	{% for rating in user.ratings | slice(0,5) %}
 		{% set monument = rating.monument %}
 		<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ (monument.id ~ '.jpg') | imagine_filter('search_thumbnail') }}" /></div><div class="result">
 				<div class="monumentname">
