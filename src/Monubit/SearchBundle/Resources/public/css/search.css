@@ -29,11 +29,22 @@ div#searchresults ul li div.image img {
 div#searchresults ul li div.result {
 	display: inline-block;
 	vertical-align: top;
-	line-height: 68px;
 	height: 68px;
 	padding: 0px 8px;
 }
-
+div.monumentname {
+	height: 32px;
+	line-height: 42px;
+	color: #444;
+}
+div.monumentaddress {
+	height: 32px;
+	font-size: 14px;
+	color: #777;
+}
+div#searchresults ul li:hover div.monumentname {
+	color: #111;
+}
 div#searchresults ul li:hover {
 	background: #eee;
 }

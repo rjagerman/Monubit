@@ -16,13 +16,19 @@ No results found for '{{ results.query.query }}'
 <ul>
 {% for monument in results.monuments %}
 	<li><a href="{{ path('monument', {'id': monument.id}) }}"><div class="image"><img src="{{ (monument.id ~ '.jpg') | imagine_filter('search_thumbnail') }}" /></div><div class="result">
+	<div class="monumentname">
 	{% if monument.name != "" %} {{ monument.name }} 
 	{% else %}{{ monument.location.street }} 
 		{% if monument.location.streetNumber != 0 %}
 			{{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
 		{% endif %}
 	{% endif %}
-	({{ monument.location.town }})</div></a></li>
+	</div>
+	<div class="monumentaddress">
+	{{ monument.location.town }}
+	</div>
+	</div>
+	</a></li>
 {% endfor %}
 </ul>
 </div>

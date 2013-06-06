@@ -36,9 +36,9 @@ class Pagination {
 	 * @return number The current page
 	 */
 	public function getCurrentPage() {
-		return ceil(
+		return floor(
 				$this->results->getQuery()->getOffset()
-						/ $this->results->getQuery()->getResultsPerPage());
+						/ $this->results->getQuery()->getResultsPerPage()) + 1;
 	}
 
 	/**
