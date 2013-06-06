@@ -26,15 +26,12 @@ div.image img {
 	box-shadow:2px 2px 3px #aaaaaa;
 }
 
-div.description {
+div.description  {
     margin-right:auto;
     margin-left:auto;
 	box-shadow: 0px 0px 6px #FFFAFA;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
-}
-div.description p {
-	
 }
 
 div.address {
@@ -70,6 +67,7 @@ div.tags {
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
+	padding: 0px 16px;
 }
 
 div.tags a {
