@@ -37,7 +37,7 @@ class Query {
 	public function __construct($query, $page, $resultsPerPage = 10) {
 		$this->setResultsPerPage($resultsPerPage);
 		$this->setQuery($query);
-		$this->setOffset(($page - 1) * $resultsPerPage);
+		$this->setOffset(($page - 1) * $this->getResultsPerPage());
 	}
 
 	/**
@@ -90,7 +90,7 @@ class Query {
 	 */
 	public function setResultsPerPage($resultsPerPage) {
 		if ($resultsPerPage < 1) {
-			$resultsPerPage = 1;
+			$resultsPerPage = 10;
 		}
 		$this->resultsPerPage = $resultsPerPage;
 	}

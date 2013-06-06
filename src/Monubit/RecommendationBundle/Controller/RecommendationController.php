@@ -20,7 +20,15 @@ class RecommendationController extends Controller {
     	// Get the monument
     	$monument = $repository->find($id);
     	
-    	$tags = $monument->getTags();
+    	/*$recommended = array();
+    	foreach($results->getMonuments() as $monument) {
+    		if($monument->getId() != $id) {
+    			$recommended[] = $monument;    			
+    		}
+    	}*/
+    	return array('monument' => $monument);
+    	
+    	/*$tags = $monument->getTags();
     	$recommended = array();
     	
     	for($i = 0; $i < min(4, count($tags));$i++) {
@@ -29,6 +37,6 @@ class RecommendationController extends Controller {
     			$recommended[$i] = $monuments[$i];
     		}
     	}
-    	return array('recommended' => $recommended);
+    	return array('recommended' => $recommended);*/
     }
 }

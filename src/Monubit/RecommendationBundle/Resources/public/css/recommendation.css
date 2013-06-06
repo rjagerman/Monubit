@@ -1,9 +1,22 @@
+div.recommended {
+	width: 230px;
+	float: right;
+}
+div#recommended ul li a {
+	width: 230px;
+	font-size: 12px;
+}
+div#recommend ul li {
+	width: 120px;
+	overflow: hidden;
+	
+}
 div.recommended ul li div.image {
 	display: inline-block;
 	vertical-align: top;
 	overflow: hidden;
 	width: 48px;
-	height: 64px;
+	height: 52px;
 	margin: 1px;
 	text-align: center;
 	border: 1px solid #eee;
@@ -18,12 +31,29 @@ div.recommended ul li div.image img {
 div.recommended ul li div.result {
 	display: inline-block;
 	vertical-align: top;
-	line-height: 68px;
-	height: 68px;
+	height: 52px;
 	padding: 0px 8px;
 	margin-bottom: 20px;
+	overflow: hidden;
+	font-size: 14px;
+	width: 160px;
+}
+div.monumentaddress {
+	font-size: 12px;
+	width: 160px;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow:ellipsis;
+}
+div.monumentname {
+	width: 160px;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow:ellipsis;
 }
 
 div.recommended ul {
 	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
 }

@@ -14,7 +14,7 @@ import tokenizer
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.CRITICAL)
 
 # Queries the monuments with given query and offset
-def query(query, offset):
+def query(query, offset, rpp):
 
     # Load the indexed data
     ids = pickle.load(open(config.data_directory + '/monuments.ids', 'r'))
@@ -40,13 +40,13 @@ def query(query, offset):
     sims = similarity
     sims = [s for s in sims if s[1] > 0]
     offset = int(min(offset, len(sims)))
-    results = [ids[sim[0]] for sim in sims[offset:int(min(offset+10, len(sims)))]]
+    results = [ids[sim[0]] for sim in sims[offset:int(min(offset+rpp, len(sims)))]]
     
     # Print json result
     print json.dumps({
         'nrOfResults': len(sims),
         'startResult': offset,
-        'endResult': min(offset+10, len(sims)),
+        'endResult': min(offset+rpp, len(sims)),
         'results': results})
     
 
@@ -54,21 +54,24 @@ def query(query, offset):
 def main(argv):
     q = ''
     offset = 0
+    rpp = 10
     try:
-        opts, args = getopt.getopt(argv,"hq:o:",["query=","offset="])
+        opts, args = getopt.getopt(argv,"hq:o:p",["query=","offset=","resultsPerPage="])
     except getopt.GetoptError:
-        print 'query.py -q <query> -o <offset>'
+        print 'query.py -q <query> -o <offset> -p <resultsPerPage>'
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'query.py -q <query> -o <offset>'
+            print 'query.py -q <query> -o <offset> -p <resultsPerPage>'
             sys.exit()
         elif opt in ("-q", "--query"):
             q = arg
         elif opt in ("-o", "--offset"):
             offset = int(arg)
+        elif opt in ("-p", "--resultsPerPage"):
+            rpp = int(arg)
     
-    query(q, offset)
+    query(q, offset, rpp)
 
 # Run the appropriate main method when starting the script
 if __name__ == "__main__":
