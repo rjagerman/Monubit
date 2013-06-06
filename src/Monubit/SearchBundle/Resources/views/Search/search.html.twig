@@ -11,7 +11,9 @@
 {# Search results #}
 <div id="searchresults">
 {% if results.monuments is empty %}
+<div class="notification">
 No results found for '{{ results.query.query }}'
+</div>
 {% endif %}
 <ul>
 {% for monument in results.monuments %}

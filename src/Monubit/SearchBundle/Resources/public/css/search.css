@@ -48,6 +48,9 @@ div#searchresults ul li:hover div.monumentname {
 div#searchresults ul li:hover {
 	background: #eee;
 }
+div.notification {
+	margin: 16px;
+}
 
 div#pagination {
 	margin: 8px 16px;
