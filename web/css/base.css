@@ -58,7 +58,7 @@ div#logo {
 }
 
 div#searchbar {
-	width: 480px;
+	width: 390px;
 	padding-left: 20px;
 }
 
@@ -106,7 +106,7 @@ div#searchbar select{
 }
 
 div#userbar {
-	width: 230px;
+	width: 320px;
 	height: 68px;
 	line-height: 68px;
 	text-align: right;
