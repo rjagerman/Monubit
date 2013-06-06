@@ -72,8 +72,8 @@ class Query {
 	 * @param int $offset The result offset
 	 */
 	public function setOffset($offset) {
-		if ($offset < 1) {
-			$offset = 1;
+		if ($offset < 0) {
+			$offset = 0;
 		}
 		$this->offset = $offset;
 	}

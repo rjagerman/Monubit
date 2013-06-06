@@ -45,7 +45,8 @@ for idx, monument in enumerate(monuments):
         'subCategory': normalized,
         'street': 1,
         'province': normalized,
-        'zipCode': 1
+        'zipCode': 1,
+        'tags': normalized
     }
     monument_texts.append(database.getConcatenatedString(monument, field_weights))
 

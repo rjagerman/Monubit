@@ -38,18 +38,20 @@ class SearchController extends Controller {
 	}
 	
 	/**
-	 * @Route("/searchresults/{query}/{page}/{resultsPerPage}",
-	 *   name="searchresults"
+	 * @Route("/searchresults/{query}/{page}/{resultsPerPage}/{filter}",
+	 *   name="searchresults",
+	 *   defaults={"filter" = 0}
 	 * )
 	 * @Template()
 	 */
-	public function searchresultsAction($query, $page, $resultsPerPage) {
+	public function searchresultsAction($query, $page, $resultsPerPage, $filter = 0) {
 		
 		// Construct query from the request parameters
 		$query = new Query($query, $page, $resultsPerPage);
 		
 		// Get the search results
 		$results = $this->getSearchResults($query);
+		$results->filter($filter);
 		
 		// Create pagination for the search results
 		$pagination = new Pagination($results);

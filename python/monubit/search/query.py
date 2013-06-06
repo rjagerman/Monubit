@@ -40,7 +40,7 @@ def query(query, offset, rpp):
     sims = similarity
     sims = [s for s in sims if s[1] > 0]
     offset = int(min(offset, len(sims)))
-    results = [ids[sim[0]] for sim in sims[offset:int(min(offset+rpp, len(sims)))]]
+    results = [str(ids[sim[0]]) for sim in sims[offset:int(min(offset+rpp, len(sims)))]]
     
     # Print json result
     print json.dumps({

@@ -64,7 +64,7 @@
 <div class="recommended">
 	<h2>Aanbevolen</h2>
 	{# {% render controller('MonubitRecommendationBundle:Recommendation:recommendation', {'id': monument.id}) %} #}
-	{% render controller('MonubitSearchBundle:Search:searchresults', {'query': (monument.description) ~ ' ' ~ (monument.subCategory) ~ ' ' ~ (monument.location.town), 'page': 0, 'resultsPerPage': 6}) %}
+	{% render controller('MonubitSearchBundle:Search:searchresults', {'query': (monument.description) ~ ' ' ~ (monument.subCategory) ~ ' ' ~ (monument.location.town), 'page': 0, 'resultsPerPage': 6, 'filter': monument.id}) %}
 </div>
 {% endspaceless %}
 {% endblock %}

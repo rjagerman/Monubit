@@ -12,7 +12,13 @@ def getMonuments():
     db = getDatabase()
     db.execute('SELECT monument.id AS id, ' + ', '.join(fields) + ' FROM `monument`, `location` WHERE monument.location_id = location.id')
     rows = db.fetchall()
-    monuments = [row for row in rows]
+    monuments = []
+    for row in rows:
+        db.execute('SELECT tagname FROM tag, monuments_tags WHERE tag_id = id AND monument_id = ' + str(row['id']))
+        trows = db.fetchall()
+        tags = ', '.join([trow['tagname'] for trow in trows])
+        row['tags'] = tags
+        monuments.append(row)
     return monuments
    
 # Returns a concatenated string from given documents using given fields and weights   

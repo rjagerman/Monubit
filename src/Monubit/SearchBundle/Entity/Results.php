@@ -69,5 +69,20 @@ class Results {
 	public function addMonuments($monument) {
 		$this->monuments[] = $monument;
 	}
+	
+	/**
+	 * Filters out given id from the search results
+	 * 
+	 * @param int $id The identifier
+	 */
+	public function filter($id) {
+		$results = array();
+		foreach($this->monuments as $monument) {
+			if($monument->getId() != $id) {
+				$results[] = $monument;
+			}
+		}
+		$this->monuments = $results;
+	}
 
 }
