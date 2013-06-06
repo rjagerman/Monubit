@@ -30,6 +30,7 @@ function addTag(me) {
 	   		$("#tag-dialog").dialog( "open" );
 	   	}
    	});
+   	$("#tagname").val("");
    	$(me).dialog( "close" );
 }
 
