@@ -1,3 +1,6 @@
+div.recommended h2 {
+	padding-left: 0px;
+}
 div.right, div.left, div.content {
     float:left;
 }
