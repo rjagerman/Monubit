@@ -23,3 +23,10 @@ label.leftlabel {
 div#userpage form input {
 	margin: 4px;
 }
+
+div.error {
+	margin: 16px 0px 0px 0px;
+	text-align: center;
+	color: #c33;
+	font-size: 14px;
+}
