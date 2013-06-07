@@ -44,14 +44,18 @@ div.monumentaddress {
 	white-space: nowrap; 
 	overflow: hidden;
 	text-overflow:ellipsis;
+	color: #777;
 }
 div.monumentname {
 	width: 160px;
 	white-space: nowrap; 
 	overflow: hidden;
 	text-overflow:ellipsis;
+	color: #444;
 }
-
+div.result:hover div.monumentname {
+	color: #111;
+}
 div.recommended ul {
 	list-style-type: none;
 	margin: 0px;
