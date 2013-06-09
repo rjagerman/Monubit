@@ -78,7 +78,7 @@ class Results {
 	public function filter($id) {
 		$results = array();
 		foreach($this->monuments as $monument) {
-			if($monument->getId() != $id) {
+			if($monument != null && $monument->getId() != $id) {
 				$results[] = $monument;
 			}
 		}
