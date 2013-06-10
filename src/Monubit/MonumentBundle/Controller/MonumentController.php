@@ -32,7 +32,14 @@ class MonumentController extends Controller {
 		$lat = $monument->getLocation()->getLatitude();
 		
 		if ($lat != 0 || $lon != 0) {
-			/**
+			$map = createMap($lat, $lon);
+			$result['map'] = $map;
+		}
+		return $result;
+	}
+	
+	private function createMap($lat, $lon) {
+		/**
 			 * Create the map for on the page.
 			 * @var Ivory\GoogleMapBundle\Model\Map */
 			$map = new Map();
@@ -58,9 +65,6 @@ class MonumentController extends Controller {
 					->setOptions(
 							array('clickable' => false, 'flat' => true,));
 			$map->addMarker($marker);
-			$result['map'] = $map;
-			
-		}
-		return $result;
+			return $map;
 	}
 }
