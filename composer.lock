@@ -708,16 +708,16 @@
         },
         {
             "name": "egeloen/google-map",
-            "version": "0.9.1",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egeloen/ivory-google-map.git",
-                "reference": "0.9.1"
+                "reference": "1.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egeloen/ivory-google-map/zipball/0.9.1",
-                "reference": "0.9.1",
+                "url": "https://api.github.com/repos/egeloen/ivory-google-map/zipball/1.0.0",
+                "reference": "1.0.0",
                 "shasum": ""
             },
             "require": {
@@ -733,12 +733,17 @@
                 "willdurand/geocoder": "Allows to use geocoding service"
             },
             "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Ivory\\GoogleMap": "src/"
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -752,25 +757,25 @@
             "keywords": [
                 "google map"
             ],
-            "time": "2013-04-10 19:55:38"
+            "time": "2013-06-06 21:12:50"
         },
         {
             "name": "egeloen/google-map-bundle",
-            "version": "1.1.1",
+            "version": "2.0.0",
             "target-dir": "Ivory/GoogleMapBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/egeloen/IvoryGoogleMapBundle.git",
-                "reference": "1.1.1"
+                "reference": "2.0.0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/egeloen/IvoryGoogleMapBundle/zipball/1.1.1",
-                "reference": "1.1.1",
+                "url": "https://api.github.com/repos/egeloen/IvoryGoogleMapBundle/zipball/2.0.0",
+                "reference": "2.0.0",
                 "shasum": ""
             },
             "require": {
-                "egeloen/google-map": "0.9.*",
+                "egeloen/google-map": "1.0.*",
                 "php": ">=5.3.0",
                 "symfony/framework-bundle": "2.*"
             },
@@ -782,12 +787,17 @@
                 "willdurand/geocoder": "*"
             },
             "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
             "autoload": {
                 "psr-0": {
                     "Ivory\\GoogleMapBundle": ""
                 }
             },
-            "notification-url": "http://packagist.org/downloads/",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -801,7 +811,7 @@
             "keywords": [
                 "google map"
             ],
-            "time": "2013-04-10 19:58:55"
+            "time": "2013-06-07 20:19:56"
         },
         {
             "name": "friendsofsymfony/user-bundle",

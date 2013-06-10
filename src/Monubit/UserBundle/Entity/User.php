@@ -42,42 +42,4 @@ class User extends BaseUser {
 		$this->ratings = $ratings;
 	}
 	
-	/**
-	 * Compute the cosine similarity between this user and given user
-	 * 
-	 * @param \Monubit\UserBundle\Entity\User $user The user
-	 * @return number The cosine similarity
-	 */
-	public function getCosineSimilarity($user) {
-		
-		// Initialise arrays
-		$a = $b = $c = 0;
-		$tokensA = $tokensB = $uniqueTokensA = $uniqueTokensB = array();
-		
-		// Get the ratings and place them in sparse arrays
-		foreach($user->getRatings() as $rating) {
-			$tokensA[$rating->getMonument()->getId()] = $rating->getRating();
-		}
-		foreach($this->getRatings() as $rating) {
-			$tokensB[$rating->getMonument()->getId()] = $rating->getRating();
-		}
-		
-		// Get unique values of the merged arrays
-		$uniqueMergedTokens = array_unique(array_merge($user->getRatings()->toArray(), $user->getRatings()->toArray()));
-		
-		// Set others to 0
-		foreach ($tokensA as $token) $uniqueTokensA[$token] = 0;
-		foreach ($tokensB as $token) $uniqueTokensB[$token] = 0;
-		
-		// Compute cosine angle between the arrays
-		foreach ($uniqueMergedTokens as $token) {
-			$x = isset($uniqueTokensA[$token]) ? 1 : 0;
-			$y = isset($uniqueTokensB[$token]) ? 1 : 0;
-			$a += $x * $y;
-			$b += $x;
-			$c += $y;
-		}
-		return $b * $c != 0 ? $a / sqrt($b * $c) : 0;
-	}
-
 }
