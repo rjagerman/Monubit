@@ -25,10 +25,11 @@ class AppKernel extends Kernel
         	new Monubit\UserBundle\MonubitUserBundle(),
             new Monubit\RatingsBundle\MonubitRatingsBundle(),
             new Monubit\TagBundle\MonubitTagBundle(),
-			new Monubit\MapBundle\MonubitMapBundle(),
+			//new Monubit\MapBundle\MonubitMapBundle(),
 			new FOS\UserBundle\FOSUserBundle(),
 			new Ivory\GoogleMapBundle\IvoryGoogleMapBundle(),
         	new Liip\ImagineBundle\LiipImagineBundle(),
+            new Monubit\RecommendationBundle\MonubitRecommendationBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

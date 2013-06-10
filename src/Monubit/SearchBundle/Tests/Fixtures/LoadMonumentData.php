@@ -19,19 +19,19 @@ class LoadMonumentData implements FixtureInterface {
 		
 		$location = new Location();
 		$monument->setLocation($location);
-		$location->setStreet('Bar');
-		$location->setProvince('Bar');
-		$location->setMunicipality('Bar');
-		$location->setTown('Foobar');
-		$monument->setMainCategory('Foo1');
+		$location->setStreet('FooStreet');
+		$location->setProvince('FooProvince');
+		$location->setMunicipality('FooMunicipality');
+		$location->setTown('FooTown');
+		$monument->setMainCategory('FooCategory');
 
 		
 		$monument2 = new Monument();
 		$monument2->setId(5);
-		$monument2->setName('Foobar');
+		$monument2->setName('Bar');
 		$location2 = new Location();
 		$monument2->setLocation($location2);
-		$monument2->SetSubCategory('Bar1');
+		$monument2->SetSubCategory('BarCategory');
 				
 		$manager->persist($monument);
 		$manager->persist($monument2);

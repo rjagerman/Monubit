@@ -1,3 +1,8 @@
+monubit_recommendation:
+    resource: "@MonubitRecommendationBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 monubit_tag:
     resource: "@MonubitTagBundle/Controller/"
     type:     annotation
@@ -27,10 +32,5 @@ monubit_front:
 
 monubit_monument:
     resource: "@MonubitMonumentBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
-monubit_maps:
-    resource: "@MonubitMapBundle/Controller/"
     type:     annotation
     prefix:   /

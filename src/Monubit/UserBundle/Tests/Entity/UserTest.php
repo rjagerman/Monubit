@@ -32,5 +32,5 @@ class UserTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($rating1, $this->user->getRatings()[0]);
 		$this->assertEquals($rating2, $this->user->getRatings()[1]);
 	}
-
+	
 }

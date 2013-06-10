@@ -41,5 +41,5 @@ class User extends BaseUser {
 	public function setRatings($ratings) {
 		$this->ratings = $ratings;
 	}
-
+	
 }

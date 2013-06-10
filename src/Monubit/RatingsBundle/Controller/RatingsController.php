@@ -26,41 +26,37 @@ class RatingsController extends Controller
     	// Get the entity manager
     	$em = $this->getDoctrine()->getManager();
     	
-    	// Get the monument
-    	$monument = $em->getRepository('MonubitMonumentBundle:Monument')->find($id);
-    	
-    	// If the monument does not exist, throw an error
-    	if ($monument == null) {
-    		return new JsonResponse(array("error" => "Monument not found"));
+    	try {
+    		
+    		// Get the user's rating for given monument
+    		$monument = $this->findMonument($id);
+    		$user = $this->getUser();
+    		if($user == null) {
+    			throw new \Exception("User is not logged in", 403);
+    		}
+    		$monumentRating = $em->getRepository('MonubitRatingsBundle:Rating')->findOneBy(array("monument" => $monument, "user" => $user));
+    		 
+    		// If the rating does not exist yet, create a new
+    		if ($monumentRating == null) {
+    			$monumentRating = new Rating();
+    			$monumentRating->setUser($user);
+    			$monumentRating->setMonument($monument);
+    		}
+    		 
+    		// Set the rating and store it in the database
+    		$monumentRating->setRating($rating);
+    		$em->persist($monumentRating);
+    		$em->flush();
+    		
+    	} catch(\Exception $e) {
+    		
+    		return new JsonResponse(array("error" => array("code" => $e->getCode(), "message" => $e->getMessage())));
+    		
     	}
     	
-    	// Get the logged in user
-    	$user = $this->getUser();
-    	
-    	// If the user is not logged in
-    	if ($user == null) {
-    		return new JsonResponse(array("error" => "User is not logged in"));
-    	}
-    	
-    	// Get the rating if it already exists
-    	$monumentRating = $em->getRepository('MonubitRatingsBundle:Rating')->findOneBy(array("monument" => $monument, "user" => $user));
-    	
-    	// If the rating does not exist yet, create it anew
-    	if ($monumentRating == null) {
-    		$monumentRating = new Rating();
-    		$monumentRating->setUser($user);
-    		$monumentRating->setMonument($monument);
-    	}
-    	
-    	// Set the rating
-    	$monumentRating->setRating($rating);
-    	
-    	// Store it in the database
-    	$em->persist($monumentRating);
-    	$em->flush();
-    	
-    	// Return correct response
     	return new JsonResponse("success");
+    	
+    	
     }
     
     /**
@@ -71,39 +67,35 @@ class RatingsController extends Controller
      * )
      */
     public function removeAction($id) {
+    	
     	// Get the entity manager
     	$em = $this->getDoctrine()->getManager();
     	 
-    	// Get the monument
-    	$monument = $em->getRepository('MonubitMonumentBundle:Monument')->find($id);
-    	 
-    	// If the monument does not exist, give an error
-    	if ($monument == null) {
-    		return new JsonResponse(array("error" => "Monument not found"));
+    	try {
+    	
+    		// Get the user's rating for given monument
+    		$monument = $this->findMonument($id);
+    		$user = $this->getUser();
+    		if($user == null) {
+    			throw new \Exception("User is not logged in", 403);
+    		}
+    		$monumentRating = $em->getRepository('MonubitRatingsBundle:Rating')->findOneBy(array("monument" => $monument, "user" => $user));
+    		if ($monumentRating == null) {
+    			throw new \Exception("User did not yet rate this monument", 412);
+    		}
+    		
+    		// Remove it from the database
+    		$em->remove($monumentRating);
+    		$em->flush();
+    		
+    	} catch(\Exception $e) {
+    	
+    		return new JsonResponse(array("error" => array("code" => $e->getCode(), "message" => $e->getMessage())));
+    	
     	}
-    	 
-    	// Get the logged in user
-    	$user = $this->getUser();
-    	 
-    	// If the user is not logged in, give an error
-    	if ($user == null) {
-    		return new JsonResponse(array("error" => "User is not logged in"));
-    	}
-    	 
-    	// Get the rating
-    	$monumentRating = $em->getRepository('MonubitRatingsBundle:Rating')->findOneBy(array("monument" => $monument, "user" => $user));
-    	 
-    	// If the rating does not exist, give an error
-    	if ($monumentRating == null) {
-    		return new JsonResponse(array("error" => "User did not yet rate this monument"));
-    	}
-    	 
-    	// Remove it from the database
-    	$em->remove($monumentRating);
-    	$em->flush();
-    	 
-    	// Return correct response
+
     	return new JsonResponse("success");
+    	
     }
     
     /**
@@ -151,6 +143,29 @@ class RatingsController extends Controller
     	// Return the values to the template
     	return array("monument" => $monument, "rating" => $rating, "average" => $averageRating);
     	
+    }
+    
+    /**
+     * Finds the monument with given id
+     * 
+     * @param int $id The monument id
+     * @throws \Exception If the monument does not exist
+     * @return \Monubit\Monumentbundle\Entity\Monument The monument
+     */
+    protected function findMonument($id) {
+    	
+    	// Get the entity manager
+    	$em = $this->getDoctrine()->getManager();
+    	
+    	// Get the monument
+    	$monument = $em->getRepository('MonubitMonumentBundle:Monument')->find($id);
+    	
+    	// If the monument does not exist, give an error
+    	if ($monument == null) {
+    		throw new \Exception("Monument not found", 412);
+    	}
+    	
+    	return $monument;
     }
     
 }

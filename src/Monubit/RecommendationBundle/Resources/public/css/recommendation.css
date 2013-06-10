@@ -1,0 +1,63 @@
+div.recommended {
+	width: 230px;
+	float: right;
+}
+div#recommended ul li a {
+	width: 230px;
+	font-size: 12px;
+}
+div#recommend ul li {
+	width: 120px;
+	overflow: hidden;
+	
+}
+div.recommended ul li div.image {
+	display: inline-block;
+	vertical-align: top;
+	overflow: hidden;
+	width: 48px;
+	height: 52px;
+	margin: 1px;
+	text-align: center;
+	border: 1px solid #eee;
+	background: #eee;
+}
+
+div.recommended ul li div.image img {
+	height: 64px;
+	width: 48px;
+}
+
+div.recommended ul li div.result {
+	display: inline-block;
+	vertical-align: top;
+	height: 52px;
+	padding: 0px 8px;
+	margin-bottom: 20px;
+	overflow: hidden;
+	font-size: 14px;
+	width: 160px;
+}
+div.monumentaddress {
+	font-size: 12px;
+	width: 160px;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow:ellipsis;
+	color: #777;
+}
+div.monumentname {
+	width: 160px;
+	white-space: nowrap; 
+	overflow: hidden;
+	text-overflow:ellipsis;
+	color: #444;
+}
+div.result:hover div.monumentname {
+	color: #111;
+}
+div.recommended ul {
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}

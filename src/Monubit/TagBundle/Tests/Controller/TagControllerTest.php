@@ -55,7 +55,7 @@ class TagControllerTest extends WebTestCase {
 		$content = $this->client->getResponse()->getContent();
 		$array_of_contents = json_decode($content,true);
 		
-		$this->assertEquals(500, $array_of_contents["error"]["code"]);	
+		$this->assertEquals(412, $array_of_contents["error"]["code"]);	
 		$this->assertEquals("Tag is te lang", $array_of_contents["error"]["message"]);
 	}
 
@@ -88,7 +88,7 @@ class TagControllerTest extends WebTestCase {
 		$content = $this->client->getResponse()->getContent();
 		$array_of_contents = json_decode($content,true);
 	
-		$this->assertEquals(500, $array_of_contents["error"]["code"]);
+		$this->assertEquals(412, $array_of_contents["error"]["code"]);
 		$this->assertEquals("Tag bestaat al in dit monument", $array_of_contents["error"]["message"]);
 	}
 }

@@ -19,16 +19,7 @@
     				<a href="{{ path('home') }}"><img src="{{ asset('img/logo.png') }}" /></a>
     			</div>
     			<div id="searchbar">
-    				<form action="{{ path('search') }}" id="searchform"><input type="text" name="query" id="searchinput" /><input id="searchsubmit" type="submit" />
-    				<select name="type">   
-   					<option value="town">Stad</option>   
-   					<option value="name">Naam</option>  
-   					<option value="mainCategory">Categorie</option>
-   					<option value="street">Straat</option>   
-   					<option value="municipality">Gemeente</option>  
-   					<option value="province">Provincie</option>
-   					<option value="tagname">Tag</option>
-				</select></form>
+    				{% include 'MonubitSearchBundle:Search:searchbar.html.twig' %}
     			</div>
     			<div id="userbar">
     			{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

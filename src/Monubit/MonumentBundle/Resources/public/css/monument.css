@@ -1,3 +1,6 @@
+div.recommended h2 {
+	padding-left: 0px;
+}
 div.right, div.left, div.content {
     float:left;
 }
@@ -26,15 +29,12 @@ div.image img {
 	box-shadow:2px 2px 3px #aaaaaa;
 }
 
-div.description {
+div.description  {
     margin-right:auto;
     margin-left:auto;
 	box-shadow: 0px 0px 6px #FFFAFA;
 	padding-bottom: 5px;
 	margin-bottom: 5px;
-}
-div.description p {
-	
 }
 
 div.address {
@@ -63,17 +63,14 @@ a#addtag {
 	text-decoration:none;
 	border-radius:15px 0px 15px 0px;
 	box-shadow:0px 0px 10px 3px rgba(0,0,0,0.2);
-	/*-moz-border-radius:15px;
-	-webkit-border-radius:15px;
-	-moz-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.2);
-	-webkit-box-shadow:0px 0px 10px 3px rgba(0,0,0,0.2);*/
 }
 
 div.tags {
-	width:210px;
+	width:500px;
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
+	padding: 0px 16px;
 }
 
 div.tags a {

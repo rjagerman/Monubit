@@ -6,8 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\Process\Process;
+use Monubit\SearchBundle\Entity\Pagination;
+use Monubit\SearchBundle\Entity\Query;
+use Monubit\SearchBundle\Entity\Results;
 
 class SearchController extends Controller {
+
 	/**
 	 * @Route("/search",
 	 *   name="search"
@@ -15,42 +20,73 @@ class SearchController extends Controller {
 	 * @Template()
 	 */
 	public function searchAction(Request $request) {
-
-		// Initialize settings
-		$resultsPerPage = 10;
-		$repository = $this->getDoctrine()->getManager()
-				->getRepository('MonubitMonumentBundle:Monument');
+		// Construct query from the request parameters
+		$query = new Query($request->query->get('query'),
+				$request->query->get('page'), $request->query->get('resultsPerPage'));
 		
-		// Get parameters from request
-		$query = $request->query->get('query');
-		$offset = $request->query->get('offset');
-		if($offset < 1) {
-			$offset = 1;
-		}
-		$type = $request->query->get('type');
-		if($type == null) {
-			$type = 'name';
-		}
+		// Get the search results
+		$results = $this->getSearchResults($query);
 		
-		// Create the necessary criteria
-		$criteria = array($type => $query);
+		// Create pagination for the search results
+		$pagination = new Pagination($results);
 		
-		// Get the results
-		$results = $repository->findLike($criteria, $resultsPerPage, ($offset-1) * $resultsPerPage);
-		
-		// Get the total number of results
-		$totalNumberOfResults = $repository->findCountLike($criteria);
-		$totalNumberOfPages = ceil($totalNumberOfResults / $resultsPerPage);
-
-		// Create pagination start and end indices
-		$adjacentPages = 4;
-		$start = max(1, min($offset - $adjacentPages, $totalNumberOfPages));
-		$end = max(1, min($offset + $adjacentPages, $totalNumberOfPages));
-		
-
-		// Return the found results to the template
-		return array('results' => $results, 'query' => $query, 'type' => $type,
-				'page' => $offset, 'pages' => $totalNumberOfPages,
-				'startpage' => $start, 'endpage' => $end);
+		// Render the template with the results and pagination
+		return array('results' => $results, 'pagination' => $pagination);
 	}
+	
+	/**
+	 * @Route("/searchresults/{query}/{page}/{resultsPerPage}/{filter}",
+	 *   name="searchresults",
+	 *   defaults={"filter" = 0}
+	 * )
+	 * @Template()
+	 */
+	public function searchresultsAction($query, $page, $resultsPerPage, $filter = 0) {
+		
+		// Construct query from the request parameters
+		$query = new Query($query, $page, $resultsPerPage);
+		
+		// Get the search results
+		$results = $this->getSearchResults($query);
+		$results->filter($filter);
+		
+		// Create pagination for the search results
+		$pagination = new Pagination($results);
+		
+		// Render the template with the results and pagination
+		return array('results' => $results, 'pagination' => $pagination);
+	}
+
+
+	/**
+	 * Gets the search results for running given query from given offset
+	 * 
+	 * @param \Monubit\SearchBundle\Entity\Query $query The query
+	 * @return \Monubit\SearchBundle\Entity\Results The results
+	 */
+	public function getSearchResults($query) {
+
+		// Construct and execute python search command
+		$command = 'python -m monubit.search.query -q "' . $query->getSafeQuery()
+				. '" -o ' . $query->getOffset() . ' --resultsPerPage=' . $query->getResultsPerPage();
+		$folder = $this->get('kernel')->getRootDir() . '/../python';
+		$process = new Process($command);
+		$process->setWorkingDirectory($folder);
+		$process->run();
+
+		// Iterate over the results and construct a results object
+		$results = new Results($query);
+		if ($process->isSuccessful()) {
+			$response = json_decode($process->getOutput());
+			$results->setNumberOfResults($response->nrOfResults);
+			$repository = $this->getDoctrine()->getManager()
+					->getRepository('MonubitMonumentBundle:Monument');
+			foreach ($response->results as $id) {
+				$results->addMonuments($repository->find($id));
+			}
+		}
+
+		return $results;
+	}
+
 }

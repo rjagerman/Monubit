@@ -6,6 +6,7 @@
 <link href="{{ asset('css/jquery.rating.css') }}" type="text/css" rel="stylesheet" />
 <link href="{{ asset('bundles/monubitmonument/css/monument.css') }}" type="text/css" rel="stylesheet" />
 <link href="{{ asset('bundles/monubitratings/css/ratings.css') }}" type="text/css" rel="stylesheet" />
+<link href="{{ asset('bundles/monubitrecommendation/css/recommendation.css') }}" type="text/css" rel="stylesheet" />
 {% endblock %}
 {% block javascripts %}
 {{ parent() }}
@@ -54,14 +55,16 @@
 	
 	
 	<div class="description" >
-		<p>{{ monument.description }}</p>
+		<p>{{ monument.description|raw }}</p>
 	</div>
 	
 	{% include 'MonubitTagBundle:Tag:tagcomponent.html.twig' with {'monument': monument} %}
 </div>
 
-<div class="right">
+<div class="recommended">
 	<h2>Aanbevolen</h2>
+	{# {% render controller('MonubitRecommendationBundle:Recommendation:recommendation', {'id': monument.id}) %} #}
+	{% render controller('MonubitSearchBundle:Search:searchresults', {'query': (monument.description) ~ ' ' ~ (monument.subCategory) ~ ' ' ~ (monument.location.town), 'page': 0, 'resultsPerPage': 6, 'filter': monument.id}) %}
 </div>
 {% endspaceless %}
 {% endblock %}
