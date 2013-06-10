@@ -1,27 +1,9 @@
-/*function updateTips(t) {
-     $(".validateTips")
-         .text(t)
-         .addClass("ui-state-highlight");
-     setTimeout(function () {
-         tips.removeClass("ui-state-highlight", 1500);
-     }, 500);
- }
-
-function checkLength(tag) {
-     if (tag.val().length > 10 || tag.val().length < 2) {
-         tag.addClass("ui-state-error");
-         updateTips("Lengte van tag tussen " + min + " and " + max + ".");
-         return false;
-     } else {
-         return true;
-     }
- }
-*/
-
+/**
+ * Adds a tag
+ * @param me The dialog that called the function
+ */
 function addTag(me) {
-   	console.log("Voeg tag toe");
    	var url = $('#addtag').attr('href').replace("__tag__", $("#tagname").val());
-   	console.log(url);
    	$.get(url, function(json) {
 	   	if(json[0] == "success"){
 	   		$('.tags').replaceWith(json.html);
