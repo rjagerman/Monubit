@@ -196,6 +196,9 @@ class Monument {
 		return $this->ratings;
 	}
 	
+	/**
+	 * @param ratings the id used for storing ratings for this monument.
+	 */
 	public function setRatings($ratings) {
 		$this->ratings = $ratings;
 	}
