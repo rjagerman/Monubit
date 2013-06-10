@@ -4,6 +4,18 @@ Monubit
 This document contains information on how to configure Monubit so it
 runs on your webserver.
 
+0) Notes for SIG
+----------------------------------
+Monubit is build on the Symfony2 framework. As such our code exists in the
+following directories:
+
+* ./src/*
+* ./app/Resources/*
+
+All other code is part of the framework and can be excluded from the
+analysis.
+
+
 1) Requirements
 ----------------------------------
 To run Monubit you will need a web server capable of running the Symfony2
