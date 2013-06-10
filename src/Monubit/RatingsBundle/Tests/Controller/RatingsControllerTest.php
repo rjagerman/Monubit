@@ -1,7 +1,6 @@
 <?php
 
 namespace Monubit\RatingsBundle\Tests\Controller;
-
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Monubit\MonumentBundle\Entity\Monument;
 
@@ -31,7 +30,7 @@ class RatingsControllerTest extends WebTestCase {
 	/**
 	 * Tests rating a monument
 	 */
-	public function testRateMonument() {
+	public function testRateMonumentLoggedIn() {
 
 		// Log the user in
 		$this->login('Tester', 'something');
@@ -47,26 +46,103 @@ class RatingsControllerTest extends WebTestCase {
 		// Get the monument page
 		$crawler = $this->client->request('GET', '/monument/19');
 
-		// Assert the new rating
-		// ....
-		
+		// Assert that the new rating (4 stars) correctly exists
+		$this
+				->assertEquals('checked',
+						$crawler->filter('input#rating4')->first()
+								->attr('checked'));
+
 	}
 
-	public function testCancelRateMonument() {
-		
+	/**
+	 * Tests canceling a rating of a monument
+	 */
+	public function testCancelRateMonumentLoggedIn() {
+
 		// Log the user in
 		$this->login('Tester', 'something');
-		
+
 		// Remove the rating for monument 17
-		
+		$crawler = $this->client->request('GET', '/rating/remove/17');
+
 		// Assert ok
-		
+		$this
+				->assertEquals(200,
+						$this->client->getResponse()->getStatusCode());
+
 		// Get the monument page for monument 17
-		
-		// Assert the new rating
-		
+		$crawler = $this->client->request('GET', '/monument/17');
+
+		// Assert that the rating (4 stars) does not exist
+		$this
+				->assertEquals('',
+						$crawler->filter('input#rating4')->first()
+								->attr('checked'));
+
 	}
 
+	/**
+	 * Tests rating a monument when not logged in
+	 */
+	public function testRateMonumentNotLoggedIn() {
+
+		// Ensure the user is not logged in
+		$this->logout();
+
+		// Perform rating of a monument
+
+		// Assert that an error has occurred
+
+	}
+
+	/**
+	 * Tests canceling a rating of a monument when not logged in
+	 */
+	public function testCancelRateMonumentNotLoggedIn() {
+
+		// Ensure the user is not logged in
+		$this->logout();
+
+		// Perform cancel rating
+
+		// Assert that an error has occurred
+
+	}
+
+	/**
+	 * Tests rating a non existing monument
+	 */
+	public function testRateNoMonument() {
+
+		// Log the user in
+		$this->login('Tester', 'something');
+
+		// Try to rate a monument that does not exist
+
+		// Assert that an error has occurred
+
+	}
+
+	/**
+	 * Tests canceling a rating of a non existing monument
+	 */
+	public function testCancelRateNoMonument() {
+
+		// Log the user in
+		$this->login('Tester', 'something');
+
+		// Try to cancel a rating of a monument that does not exist
+
+		// Assert that an error has occurred
+
+	}
+
+	/**
+	 * Logs the user in during the test session
+	 * 
+	 * @param string $username The username
+	 * @param string $password The password
+	 */
 	public function login($username, $password) {
 		$crawler = $this->client->request('GET', '/login');
 		$form = $crawler->selectButton('_submit')
@@ -75,8 +151,14 @@ class RatingsControllerTest extends WebTestCase {
 								'_password' => $password,));
 		$this->client->submit($form);
 		$this->assertTrue($this->client->getResponse()->isRedirect());
-		var_dump($this->client->getResponse());
 		$crawler = $this->client->followRedirect();
-		var_dump($this->client->getResponse());
+	}
+
+	/**
+	 * Logs the user out during the test session
+	 */
+	public function logout() {
+		$crawler = $this->client->request('GET', '/logout');
+		$crawler = $this->client->followRedirect();
 	}
 }
