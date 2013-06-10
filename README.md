@@ -9,8 +9,9 @@ runs on your webserver.
 Monubit is build on the Symfony2 framework. As such our code exists in the
 following directories:
 
-* ./src/*
-* ./app/Resources/*
+* `./src/*`
+* `./app/Resources/*`
+* `./python/*`
 
 All other code is part of the framework and can be excluded from the
 analysis.
