@@ -15,61 +15,77 @@ class TagController extends Controller
      */
     public function newTagAction($id, $tagname)
     { 	
-    	// Get the entity manager
+    	// Get the entity manager and create JSON response
     	$em = $this->getDoctrine()->getManager();
-    	
-    	// Create JSON response
     	$response = new JsonResponse();
     	
-    	// Return a JSON error if the tagname exceeds more than 7 characters
+    	try {
+	    	// Find tag or create if non existent and find the monument
+			$tag = $this->findOrCreateTag($tagname);
+	    	$monument = $this->findMonument($id, $response);
+	    	
+	    	// Return a JSON error if the tag already exists for the given monument
+    		if($monument->getTags()->contains($tag)) {
+    			throw new \Exception("Tag bestaat al in dit monument", 412);
+    		}
+    		
+    		// add the tag and update the database
+    		$this->update($monument, $tag);
+    		
+    		// Notify the client and return a succesfull json response
+    		$html = $this->renderView('MonubitTagBundle:Tag:tags.html.twig', array('monument' => $monument));
+    		$response->setData(array('success', 'html' => $html));
+    	}
+    	catch(\Exception $e) {
+    		$response->setData(array('error' => array('code' => $e->getCode(), 'message' => $e->getMessage())));
+    	}
+    	return $response;
+    }
+    
+    public function findOrCreateTag($tagname) {
+    	// check that the tagname length is not greater than 16
     	if(strlen($tagname) > 16) {
-    		$response->setData(array('error' => array('code' => 500, 'message' => 'Tag is te lang')));
-    		return $response;
+    		throw new \Exception("Tag is te lang", 412);
     	}
     	
-    	// Find tag
-    	$repository = $em->getRepository('MonubitTagBundle:Tag');
+    	// find tag
+    	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitTagBundle:Tag');
     	$tag = $repository->findOneBy(array('tagname' => $tagname));
-    	
+    
     	// Create tag if it does not exist
     	if($tag == null) {
     		$tag = new Tag();
     		$tag->setTagname($tagname);
     	}
-    	
+    	return $tag;
+    }
+    
+    public function findMonument($id, $response) {
     	// Find monument
     	$repository = $this->getDoctrine()->getManager()->getRepository('MonubitMonumentBundle:Monument');
     	$monument = $repository->find($id);
-    	
+    
     	// Return a JSON error if the monument does not exist
     	if($monument == null) {
-    		$response->setData(array('error' => array('code' => 404, 'message' => 'Monument kon niet worden gevonden')));
-    		return $response;
+    		throw new \Exception("Monument kon niet worden gevonden", 404);
     	}
-    	
-    	// Return a JSON error if the tag already exists for given monument
-    	if($monument->getTags()->contains($tag)) {
-    		$response->setData(array('error' => array('code' => 500, 'message' => 'Tag bestaat al in dit monument')));
-    		return $response;
-    	}
-    	
+    	return $monument;
+    }
+    
+    public function update($monument, $tag) {
     	// Add the tag to the monument and vice versa
     	$monument->addTag($tag);
     	$tag->addMonument($monument);
-    	
+    	 
     	// Update the number of monuments
     	$tag->setNumberOfMonuments(count($tag->getMonuments()));
-    	
+    	 
     	// Store the monument and tag in the database
-    	$em->persist($tag);
-    	$em->persist($monument);
-    	
+    	$this->getDoctrine()->getManager()->persist($tag);
+    	$this->getDoctrine()->getManager()->persist($monument);
+    	 
     	// Flush the changes to the database
-    	$em->flush();
-    	
-    	// Notify the client and return a succesfull json response
-    	$html = $this->renderView('MonubitTagBundle:Tag:tags.html.twig', array('monument' => $monument));
-    	$response->setData(array('success', 'html' => $html));
-        return $response;
-    }
+    	$this->getDoctrine()->getManager()->flush();
+    }    
+    
 }
