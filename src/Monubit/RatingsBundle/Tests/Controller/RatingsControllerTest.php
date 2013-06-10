@@ -89,10 +89,17 @@ class RatingsControllerTest extends WebTestCase {
 		// Ensure the user is not logged in
 		$this->logout();
 
-		// Perform rating of a monument
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/rate/19/4');
 
+		// Assert 200 status OK
+		$this
+				->assertEquals(200,
+						$this->client->getResponse()->getStatusCode());
+		
 		// Assert that an error has occurred
-
+		$json = json_decode($this->client->getResponse()->getContent());
+		$this->assertEquals("User is not logged in", $json->error->message);
 	}
 
 	/**
@@ -103,9 +110,17 @@ class RatingsControllerTest extends WebTestCase {
 		// Ensure the user is not logged in
 		$this->logout();
 
-		// Perform cancel rating
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/remove/19');
 
+		// Assert 200 status OK
+		$this
+				->assertEquals(200,
+						$this->client->getResponse()->getStatusCode());
+		
 		// Assert that an error has occurred
+		$json = json_decode($this->client->getResponse()->getContent());
+		$this->assertEquals("User is not logged in", $json->error->message);
 
 	}
 
@@ -117,9 +132,17 @@ class RatingsControllerTest extends WebTestCase {
 		// Log the user in
 		$this->login('Tester', 'something');
 
-		// Try to rate a monument that does not exist
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/rate/230/4');
 
+		// Assert 200 status OK
+		$this
+				->assertEquals(200,
+						$this->client->getResponse()->getStatusCode());
+		
 		// Assert that an error has occurred
+		$json = json_decode($this->client->getResponse()->getContent());
+		$this->assertEquals("Monument not found", $json->error->message);
 
 	}
 
@@ -131,10 +154,52 @@ class RatingsControllerTest extends WebTestCase {
 		// Log the user in
 		$this->login('Tester', 'something');
 
-		// Try to cancel a rating of a monument that does not exist
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/remove/230');
 
+		// Assert 200 status OK
+		$this
+				->assertEquals(200,
+						$this->client->getResponse()->getStatusCode());
+		
 		// Assert that an error has occurred
+		$json = json_decode($this->client->getResponse()->getContent());
+		$this->assertEquals("Monument not found", $json->error->message);
 
+	}
+	
+	public function testCancelMonumentNotYetRated() {
+		
+		// Log the user in
+		$this->login('Tester', 'something');
+		
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/remove/19');
+		
+		// Assert 200 status OK
+		$this
+		->assertEquals(200,
+				$this->client->getResponse()->getStatusCode());
+		
+		// Assert that an error has occurred
+		$json = json_decode($this->client->getResponse()->getContent());
+		$this->assertEquals("User did not yet rate this monument", $json->error->message);
+		
+	}
+	
+	public function testRatingMonumentNotFound() {
+	
+		// Log the user in
+		$this->login('Tester', 'something');
+	
+		// Perform request
+		$crawler = $this->client->request('GET', '/rating/230');
+	
+		// Assert 200 status OK
+		$this
+		->assertEquals(404,
+				$this->client->getResponse()->getStatusCode());
+	
 	}
 
 	/**
