@@ -32,7 +32,7 @@ class MonumentController extends Controller {
 		$lat = $monument->getLocation()->getLatitude();
 		
 		if ($lat != 0 || $lon != 0) {
-			$map = createMap($lat, $lon);
+			$map = $this->createMap($lat, $lon);
 			$result['map'] = $map;
 		}
 		return $result;
