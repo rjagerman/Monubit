@@ -20,9 +20,6 @@ class SearchController extends Controller {
 	 * @Template()
 	 */
 	public function searchAction(Request $request) {
-		/*return $this->searchresultsAction($request->query->get('query'),
-				$request->query->get('page'), $request->query->get('resultsPerPage'));*/
-		
 		// Construct query from the request parameters
 		$query = new Query($request->query->get('query'),
 				$request->query->get('page'), $request->query->get('resultsPerPage'));
