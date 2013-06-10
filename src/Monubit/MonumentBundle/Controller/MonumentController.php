@@ -15,6 +15,9 @@ use Ivory\GoogleMap\Controls\ZoomControlStyle;
 class MonumentController extends Controller {
 
 	/**
+	 * retrieves right monument from the database,
+	 * and displays the monument using the monument.html.twig template
+	 * 
 	 * @Route("/monument/{id}", requirements={"id": "\d+"}, name="monument")
 	 * @Template()
 	 */
@@ -38,6 +41,9 @@ class MonumentController extends Controller {
 		return $result;
 	}
 	
+	/**
+	 * creates a map with a marker at the location ($lat, $lon)
+	 */
 	private function createMap($lat, $lon) {
 		/**
 			 * Create the map for on the page.
