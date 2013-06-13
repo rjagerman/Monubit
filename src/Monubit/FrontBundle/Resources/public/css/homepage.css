@@ -1,3 +1,10 @@
+#welcome p {
+	text-align: center;
+	font-family:"Comic Sans MS";
+	font-size: 100px;
+	color: #ff00ff;
+	text-decoration: blink;
+}
 table {
 	border-spacing:0;
 	border-collapse:collapse;
