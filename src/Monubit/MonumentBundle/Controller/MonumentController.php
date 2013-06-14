@@ -8,6 +8,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Monubit\MonumentBundle\Entity\Monument;
 use Ivory\GoogleMap\Map;
 use Ivory\GoogleMap\Overlays\Marker;
+use Ivory\GoogleMap\Overlays\InfoWindow;
 use Ivory\GoogleMap\Controls\ControlPosition;
 use Ivory\GoogleMap\Controls\ZoomControl;
 use Ivory\GoogleMap\Controls\ZoomControlStyle;
@@ -35,16 +36,16 @@ class MonumentController extends Controller {
 		$lat = $monument->getLocation()->getLatitude();
 		
 		if ($lat != 0 || $lon != 0) {
-			$map = $this->createMap($lat, $lon);
+			$map = $this->createMap($lat, $lon, $id);
 			$result['map'] = $map;
 		}
 		return $result;
 	}
 	
 	/**
-	 * creates a map with a marker at the location ($lat, $lon)
+	 * creates a map with a marker at the location ($lat, $lon, $id)
 	 */
-	private function createMap($lat, $lon) {
+	private function createMap($lat, $lon, $id) {
 		/**
 			 * Create the map for on the page.
 			 * @var Ivory\GoogleMapBundle\Model\Map */
@@ -69,7 +70,12 @@ class MonumentController extends Controller {
 			$marker->setPosition($lon, $lat, true);
 			$marker
 					->setOptions(
-							array('clickable' => false, 'flat' => true,));
+							array('flat' => true,));
+			
+			$infoWindow = new InfoWindow();
+			$infoWindow->setContent("<a href=\" ". $this->generateUrl('maps') ."#" . $id . "\">Ga naar maps pagina</a>");
+			$marker->setInfoWindow($infoWindow);
+			
 			$map->addMarker($marker);
 			return $map;
 	}
