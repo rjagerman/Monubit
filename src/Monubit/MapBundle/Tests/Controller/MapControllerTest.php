@@ -26,18 +26,26 @@ class MapControllerTest extends WebTestCase {
 								'Monubit\MapBundle\Tests\Fixtures\LoadMapData'));
 
 	}
-
-/*
-	public function testNoMaps() {
-
+	
+	public function testMaps() {
 		// Perform request
-		$crawler = $this->client->request('GET', '/maps');
-
-		// Assert 500 status error
+		$crawler = $this->client->request('GET', '/maps/');
+		
+		// Assert 200 status OK
 		$this
-				->assertEquals(500,
-						$this->client->getResponse()->getStatusCode());
-
+		->assertEquals(200,
+				$this->client->getResponse()->getStatusCode());
+		
 	}
-	*/
+	
+	public function testMapsMonuments() {
+		// Perform request
+		$crawler = $this->client->request('GET', '/maps/monument');
+		
+		// Assert 200 status OK
+		$this
+		->assertEquals(200,
+				$this->client->getResponse()->getStatusCode());
+	}
+	
 }

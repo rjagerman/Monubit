@@ -13,6 +13,13 @@ class LoadMapData implements FixtureInterface {
 	
 	public function load(ObjectManager $manager) {
 		
+		$location = new Location();
+		$location->setLatitude(4);
+		$location->setLongitude(51);
+		
+		$monument = new Monument();
+		$monument->setId(17);
+		$monument->setLocation($location);
 		
 		$manager->flush();
 		
