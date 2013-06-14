@@ -5,7 +5,10 @@
 	{% if monument.name != "" %} {{ monument.name }} 
 	{% else %}{{ monument.location.street }} 
 		{% if monument.location.streetNumber != 0 %}
-			{{ monument.location.streetNumber }} {{ monument.location.streetNumberAppendix }}
+			{{ monument.location.streetNumber }}
+			{% if  monument.location.streetNumberAppendix != 'ongd'%} 
+				{{ monument.location.streetNumberAppendix }}
+			{% endif %}
 		{% endif %}
 	{% endif %}
 	</div>
