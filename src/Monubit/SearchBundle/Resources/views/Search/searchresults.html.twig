@@ -6,7 +6,7 @@
 	{% else %}{{ monument.location.street }} 
 		{% if monument.location.streetNumber != 0 %}
 			{{ monument.location.streetNumber }}
-			{% if  monument.location.streetNumberAppendix != 'ongd'%} 
+			{% if  monument.location.streetNumberAppendix|lower != 'ongd' %} 
 				{{ monument.location.streetNumberAppendix }}
 			{% endif %}
 		{% endif %}
