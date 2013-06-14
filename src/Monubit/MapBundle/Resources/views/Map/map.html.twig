@@ -11,11 +11,16 @@
 <script type="text/javascript" src="{{ asset('bundles/monubitmap/js/maps.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/markerclusterer_compiled.js') }}"></script>
 <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+<script type="text/javascript">
+	var monumentURL = "{{ path("monument", {"id": "0"}) }}";
+	var getMonumentsURL = "{{ path("maps_monuments") }}";
+</script>
 {% endblock %}
 
 {% block body %}
 {% spaceless %}
 {# empty div for google maps #}
+<p id="loading">Het laden van de kaart kan een tijd duren.</p>
 <div id="map-canvas" style="height:600px; width:960px;">
 </div>
 
