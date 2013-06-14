@@ -23,6 +23,11 @@ def getMonuments():
    
 # Returns a concatenated string from given documents using given fields and weights   
 def getConcatenatedString(document, field_weights):
+    """Gets a concatenated string based on given document and field_weights
+        
+    >>> getConcatenatedString({"test": "some testing", "bla": "stuff"}, {"test": 2, "bla": 1})
+    ' some testing some testing  stuff '
+    """
     result = ''
     for field in field_weights:
         result = result + ' ' + ((document[field]+' ') * field_weights[field])
@@ -38,3 +43,8 @@ def getDatabase():
     dbname = config.parameters.get('database_name')
     db = MySQLdb.connect(dbhost, dbuser, dbpassword, dbname, cursorclass=MySQLdb.cursors.DictCursor)
     return db.cursor()
+
+
+if __name__ == "__main__":
+    import doctest
+    doctest.testmod()
