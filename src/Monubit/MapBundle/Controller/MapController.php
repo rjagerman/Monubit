@@ -22,29 +22,17 @@ class MapController extends Controller {
 	 */
 	public function mapsMonumentsAction() {
 		$response = new JsonResponse();
+		$em = $this->getDoctrine();
+		
+		$monuments = $em->getRepository('MonubitMonumentBundle:monument')
+				->createQueryBuilder('m')
+				->leftJoin('m.location', 'l')
+				->select("m.id, m.name, l.latitude, l.longitude, l.street, l.streetNumber")
+				->getQuery()
+				->getResult();
 
-		try {
-
-			$em = $this->getDoctrine();
-			$monuments = $em->getRepository('MonubitMonumentBundle:monument')
-					->createQueryBuilder('m')
-					->leftJoin('m.location', 'l')
-					->select("m.id, m.name, l.latitude, l.longitude, l.street, l.streetNumber")
-					->getQuery()
-					->getResult();
-
-			if (null == $monuments) {
-				throw new \Exception("De database gaf geen resultaten", 500);
-			}
-
-			$response->setData(array('success', 'data' => $monuments));
-		} catch (\Exception $e) {
-			$response
-					->setData(
-							array(
-									'error' => array('code' => $e->getCode(),
-											'message' => $e->getMessage())));
-		}
+		$response->setData(array('success', 'data' => $monuments));
+		
 		return $response;
 	}
 }
