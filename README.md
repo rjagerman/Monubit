@@ -19,12 +19,21 @@ analysis.
 1) Requirements
 ----------------------------------
 To run Monubit you will need a web server capable of running the Symfony2
-framework. This means we require the following:
+framework. To use the search system, a working python 2.7 installation is
+necessary. This means we require the following:
 
 * An HTTP server (Apache for example).
 * PHP 5.4 or higher.
 * MySQL or a similar database management system.
 * Composer (script included in the root directory).
+* Python 2.7
+
+For python, we require the following libraries:
+* Numpy
+* Scipy
+* Gensim
+* PyYAML
+* MySQL-Python
 
 Furthermore, we recommend you install the following, even though it is
 not required to run the application:
@@ -54,7 +63,7 @@ the following:
 
     php app/check.php
 
-If you get any warnings or recommendations, fix them before moving on.
+If you get any errors, fix them before moving on.
 
 4) Installing vendor scripts
 -------------------------------
@@ -96,8 +105,23 @@ To load all the tables and schemas, run the following command:
 
     php app/console doctrine:schema:update --force
 
+We included an extract of the monument registry database as a .sql file,
+named `monubit.sql`
 
-7) Done!
+7) Running the python search indexer
+---------------
+
+To run the python search indexer, browse to the python directory
+with your console
+
+    cd python
+
+Run the indexer by executing the following command:
+
+    python -m monubit.search.indexer
+
+
+8) Done!
 ---------------
 
 You can now start using Monubit at the following URL:
@@ -110,7 +134,7 @@ debugging tools, start Monubit at the following URL:
 	http://localhost/Monubit/web/app_dev.php/
 
 
-8) Running tests
+9) Running tests
 ---------------
 
 All tests are created in PHPUnit, so you need a PHPUnit distribution to
@@ -123,3 +147,6 @@ To run the code coverage you will need to have XDebug installed.
 To run the tests with coverage, execute the following:
 
     phpunit -c app --coverage-html cov/
+
+The python modules have doctests, which automatically run when you
+execute the module. To get more extensive output use the -v flag.
