@@ -8,9 +8,6 @@ function initialize() {
 	if(url.indexOf("#") != -1) {
 		id = url.substring(url.indexOf("#")+1);
 	}
-	else {
-		
-	}
 	var nederland = new google.maps.LatLng(52.0833, 5.1333);
 	var mapOptions = {
 			zoom: 7,
@@ -29,9 +26,6 @@ function initialize() {
 				if(json[0] == "success"){
 					for(var i in json.data) {
 						if(json.data[i].id == id) {
-							console.log(json.data[i].id);
-							console.log(json.data[i].latitude);
-							console.log(json.data[i].longitude);
 							map.setCenter(new google.maps.LatLng(json.data[i].longitude, json.data[i].latitude));
 							map.setZoom(20);
 						}
@@ -48,31 +42,6 @@ function initialize() {
 
 }
 
-
-
-
-
-
-function addMarker(location) { 
-	var marker = new google.maps.Marker({
-		position: location,
-		map: map
-	});
-	markers.push(marker);
-}
-
-//Sets the map on all markers in the array.
-function setAllMap(map) {
-	for (var i = 0; i < markers.length; i++) {
-		markers[i].setMap(map);
-	}
-}
-
-function addEventListener(marker, interaction, functionToCall) {
-	return function() {
-		google.maps.event.addListener(marker, interaction, functionToCall);
-	};
-}
 
 function loadAllMarkers(monuments) {
 	var infowindow = new google.maps.InfoWindow();
