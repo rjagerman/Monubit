@@ -105,8 +105,9 @@ To load all the tables and schemas, run the following command:
 
     php app/console doctrine:schema:update --force
 
-We included an extract of the monument registry database as a .sql file,
-named `monubit.sql`
+We included an extract of the monument registry database as an .sql file,
+named `monubit.sql`. You can load this database into MySQL to fill the
+software with all the current monuments.
 
 7) Running the python search indexer
 ---------------
